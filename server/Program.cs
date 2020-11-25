@@ -2,12 +2,12 @@
 
 namespace server
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-            Server.Start(4, 8888);
-        }
+      Console.WriteLine("Hello World!");
+      Server.Start(4, 8888);
     }
+  }
 }
