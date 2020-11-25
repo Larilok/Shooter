@@ -38,10 +38,19 @@ namespace server
         Server.SendUDPData(endPoint, packet);
       }
 
-      // public void HandleData(Packet packetData) {
-      //   int packetLength = packetData.ReadInt();
-      //   byte[] packetBytes = packetData.ReadBytes(packetLength);
-      // }
+      public void HandleData(Packet packetData)
+      {
+        int packetLength = packetData.ReadInt();
+        byte[] packetBytes = packetData.ReadBytes(packetLength);
+        ThreadManager.ExecuteOnMainThread(() =>
+        {
+          using (Packet _packet = new Packet(packetBytes))
+          {
+            int _packetId = _packet.ReadInt();
+            Server.packetHandlers[_packetId](id, _packet);
+          }
+        });
+      }
     }
   }
 }
