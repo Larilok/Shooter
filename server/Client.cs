@@ -1,3 +1,7 @@
+using System;
+using System.Net;
+using System.Net.Sockets;
+
 namespace server
 {
   public class Client
@@ -8,19 +12,33 @@ namespace server
 
     public Client(int clientId)
     {
-      id = clientId;
+      this.id = clientId;
       udp = new UDP(id);
-        
     } 
+
     public class UDP
     {
       public UdpClient socket;
-      public IPendPoint endPoint;
+      public IPEndPoint endPoint;
+      
+      private int id;
 
-      public UPD() {
-        endPoint = new IPendPoint(IPAddress.Parse)
+      public UDP(int id) {
+        this.id = id;
       }
       
+      public void Connect(IPEndPoint endPoint) {
+        this.endPoint = endPoint;
+      }
+      
+      // public void SendData(Packet packet) {
+      //   Server.sendUDPData(endPoint, packet);
+      // }
+      
+      // public void HandleData(Packet packetData) {
+      //   int packetLength = packetData.ReadInt();
+      //   byte[] packetBytes = packetData.ReadBytes(packetLength);
+      // }
     }
   }
 }

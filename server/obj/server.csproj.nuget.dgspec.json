@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/d/01_Code/2020/C#/server/server.csproj": {}
+    "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj": {}
   },
   "projects": {
-    "/mnt/d/01_Code/2020/C#/server/server.csproj": {
+    "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/d/01_Code/2020/C#/server/server.csproj",
+        "projectUniqueName": "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj",
         "projectName": "server",
-        "projectPath": "/mnt/d/01_Code/2020/C#/server/server.csproj",
+        "projectPath": "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj",
         "packagesPath": "/home/larilok/.nuget/packages/",
-        "outputPath": "/mnt/d/01_Code/2020/C#/server/obj/",
+        "outputPath": "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/larilok/.nuget/NuGet/NuGet.Config"

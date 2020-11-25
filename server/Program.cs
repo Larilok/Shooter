@@ -7,7 +7,7 @@ namespace server
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-
+            Server.Start(4, 8888);
         }
     }
 }
