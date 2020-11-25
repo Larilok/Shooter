@@ -27,10 +27,10 @@ public class Client : MonoBehaviour
     }
 
     private void Start() {
-        upd = new UPD();
+        udp = new UDP();
     }
     
-    public ConnectToServer() {
+    public void ConnectToServer() {
          
     }
     
@@ -45,15 +45,15 @@ public class Client : MonoBehaviour
       }
       
       public void Connect(int localPort) {
-        socket = new UdpClient(localPort);
+        //socket = new UdpClient(localPort);
 
-        socket.Connect(endPoint);
-        socket.BeginReceive(ReceiveCallback, null);
+        //socket.Connect(endPoint);
+        //socket.BeginReceive(ReceiveCallback, null);
 
-        using (Packet packet = new Packet())
-        {
-            SendData(packet)         
-        }
+        //using (Packet packet = new Packet())
+        //{
+        //        SendData(packet);
+        //}
       }
     }
       
@@ -65,6 +65,6 @@ public class Client : MonoBehaviour
       //   int packetLength = packetData.ReadInt();
       //   byte[] packetBytes = packetData.ReadBytes(packetLength);
       // }
-    }
+    //}
 
 }
