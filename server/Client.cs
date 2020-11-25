@@ -6,7 +6,6 @@ namespace server
 {
   public class Client
   {
-
     public int id; 
     public UDP udp;
 
