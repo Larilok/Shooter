@@ -20,6 +20,7 @@ public class Client : MonoBehaviour
   private static Dictionary<int, PacketHandler> packetHandlers;
 
   private void Awake() {
+        Debug.Log("Client Awake");
     if (instance == null)
     {
       instance = this;
@@ -38,6 +39,7 @@ public class Client : MonoBehaviour
   public void ConnectToServer()
   {
     InitializeClientData();
+        udp.Connect(8889);
   }
     
   public class UDP
@@ -59,6 +61,8 @@ public class Client : MonoBehaviour
 
       using (Packet packet = new Packet())
       {
+                packet.Write(1234567890123456789);
+        Debug.Log("Sending: " + packet);
         SendData(packet);
       }
     }
@@ -70,6 +74,7 @@ public class Client : MonoBehaviour
         packet.InsertInt(instance.clientId);
         if (socket != null)
         {
+                    Debug.Log("Begining Ttransmition");
           socket.BeginSend(packet.ToArray(), packet.Length(), null, null);
         }
       }

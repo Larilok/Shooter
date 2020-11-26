@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj": {}
+    "D:\\Programming\\Code\\C#\\Shooter\\server\\server.csproj": {}
   },
   "projects": {
-    "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj": {
+    "D:\\Programming\\Code\\C#\\Shooter\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj",
+        "projectUniqueName": "D:\\Programming\\Code\\C#\\Shooter\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/server.csproj",
-        "packagesPath": "/home/larilok/.nuget/packages/",
-        "outputPath": "/mnt/d/01_Code/2020/C#/client-server-multiplayer-game/server/obj/",
+        "projectPath": "D:\\Programming\\Code\\C#\\Shooter\\server\\server.csproj",
+        "packagesPath": "C:\\Users\\illya\\.nuget\\packages\\",
+        "outputPath": "D:\\Programming\\Code\\C#\\Shooter\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/larilok/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\illya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
