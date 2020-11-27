@@ -31,10 +31,11 @@ public class ObjectPool : MonoBehaviour
         {
             if (!pool[i].activeInHierarchy) return pool[i];
         }
-        return null;
+        Debug.Log("HAVE TO ADD OBJECTS!");
+        return AddAndReturnObject();
     }
 
-    public GameObject AddObject()
+    private GameObject AddAndReturnObject()
     {
         GameObject obj = Instantiate(pooledObject);
         obj.SetActive(false);

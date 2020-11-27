@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D body;
-    private Transform aimTransform;
+    Rigidbody2D playerBody;
     public GameObject player;
+    public GameObject aim;
+    public GameObject gun;
     public GameObject muzzle;
 
     float horizontal;
@@ -14,39 +15,44 @@ public class PlayerController : MonoBehaviour
 
     public float runSpeed = 20.0f;
 
-    // Start is called before the first frame update
     void Awake()
     {
-        aimTransform = transform.Find("Aim");
-        body = GetComponent<Rigidbody2D>();
+        playerBody = player.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         handleShooting();
+        handleAiming();
+    }
+    private void FixedUpdate()
+    {
+        //handleMovement();
+        handleMovement2();
     }
 
     private void handleShooting()
     {
         if (Input.GetMouseButtonDown(0))//shooting
         {
+            //Debug.Log("Shooting");
+            //Transform goodMuzzleTransform;
+            //if(gun.GetComponent<SpriteRenderer>().flipY)
+            //{
+            //    goodMuzzleTransform = muzzle.transform;
+            //} else
+            //{
+            //    goodMuzzleTransform = muzzle.transform;
+            //}
             GameObject bullet = ObjectPool.SharedInstance.GetObject();
-            if (bullet != null)
-            {
-                //Vector3 shotDir = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - muzzle.transform.position).normalized;
-                Vector3 muzzlePos = muzzle.transform.position;
-                Vector3 shotPos = (muzzlePos - player.transform.position).normalized;
-                Debug.Log("ShotPos:" + shotPos);
-                bullet.transform.position = muzzle.transform.position;
-                //bullet.transform.rotation = muzzle.transform.rotation;
-                bullet.SetActive(true);
-                bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(shotPos.x * 20, shotPos.y * 20);
-            }
-            else
-            {
-                Debug.Log("NOT ENOUGH BULLETS!!!!!!");
-            }
+            Vector3 shotPos = (muzzle.transform.position - player.transform.position).normalized;
+            //Debug.Log("ShotPos:" + shotPos);
+            bullet.transform.position = muzzle.transform.position;
+            //bullet.transform.rotation = muzzle.transform.rotation;
+            bullet.SetActive(true);
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(shotPos.x * 20, shotPos.y * 20);
+            StartCoroutine(DeactivateBullet(bullet, 10));
         }
     }
 
@@ -54,15 +60,41 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
+        playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+    }
+    private void handleMovement2()
+    {
+        Vector3 input = Vector3.zero;
+        input.x = Input.GetAxisRaw("Horizontal");
+        input.y = Input.GetAxisRaw("Vertical");
 
+        Vector3 direction = input.normalized;
+
+        Vector3 movement = direction * runSpeed * Time.fixedDeltaTime;
+
+        playerBody.MovePosition(transform.position + movement);
+    }
+    private void handleAiming()
+    {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 aimDir = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-        aimTransform.eulerAngles = new Vector3(0, 0, angle);
+        //Debug.Log("Angle: " + angle);
+        Vector3 localScale = Vector3.one*2;
+        if(angle > 90 || angle < -90)
+        {
+            localScale.y = -2f;
+        } else
+        {
+            localScale.y = +2f;
+        }
+        aim.transform.localScale = localScale;
+        aim.transform.eulerAngles = new Vector3(0, 0, angle);
     }
-    private void FixedUpdate()
+
+    private IEnumerator DeactivateBullet(GameObject toDeactivate, int deactivateIn)
     {
-        handleMovement();
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        yield return new WaitForSeconds(deactivateIn);
+        toDeactivate.SetActive(false);
     }
 }
