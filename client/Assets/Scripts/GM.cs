@@ -7,7 +7,7 @@ public class GM : MonoBehaviour
 {
     public int maxPlayers = 4;
     public int alivePlayers = 4;
-    public List<GameObject> players;
+    public static List<GameObject> players;
     
     void Start()
     {
@@ -33,7 +33,7 @@ public class GM : MonoBehaviour
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i].activeInHierarchy)
-            {
+            {//
                 Debug.Log("Updating Winner");
                 winner = players[i];
                 break;
