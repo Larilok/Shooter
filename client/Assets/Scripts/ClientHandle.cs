@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class ClientHandle : MonoBehaviour
@@ -16,29 +17,29 @@ public class ClientHandle : MonoBehaviour
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
 
-    public static void SpawnPlayer(Packet _packet)
+    public static void SpawnPlayer(Packet packet)
     {
-        int _id = _packet.ReadInt();
-        string _username = _packet.ReadString();
-        Vector3 _position = _packet.ReadVector3();
-        Quaternion _rotation = _packet.ReadQuaternion();
+        int id = packet.ReadInt();
+        string username = packet.ReadString();
+        Vector3 position = packet.ReadVector3();
+        Quaternion rotation = packet.ReadQuaternion();
 
-        GM.instance.SpawnPlayer(_id, _username, _position, _rotation);
+        GM.instance.SpawnPlayer(id, username, position, rotation);
     }
 
-    public static void PlayerPosition(Packet _packet)
+    public static void PlayerPosition(Packet packet)
     {
-        int _id = _packet.ReadInt();
-        Vector3 _position = _packet.ReadVector3();
+        int id = packet.ReadInt();
+        Vector3 position = packet.ReadVector3();
 
-        GM.players[_id].transform.position = _position;
+        GM.players[id].transform.position = position;
     }
 
-    public static void PlayerRotation(Packet _packet)
+    public static void PlayerRotation(Packet packet)
     {
-        int _id = _packet.ReadInt();
-        Quaternion _rotation = _packet.ReadQuaternion();
+        int id = packet.ReadInt();
+        Quaternion rotation = packet.ReadQuaternion();
 
-        GM.players[_id].transform.rotation = _rotation;
+        GM.players[id].transform.rotation = rotation;
     }
 }
