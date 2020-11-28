@@ -40,6 +40,7 @@ public class GM : MonoBehaviour
     }
     private void GameOverEventhandler()
     {
+<<<<<<< HEAD
         //GameObject winner = players[0];
         //for (int i = 0; i < players.Count; i++)
         //{
@@ -53,6 +54,21 @@ public class GM : MonoBehaviour
         //GameProperties.winnerName = winner.name;
         //SetWinnerString(winner.name);
         //SceneManager.LoadScene("MainMenu");
+=======
+        GameObject winner = players[0];
+        for (int i = 0; i < players.Count; i++)
+        {
+            if (players[i].activeInHierarchy)
+            {//
+                Debug.Log("Updating Winner");
+                winner = players[i];
+                break;
+            }
+        }
+        GameProperties.winnerName = winner.name;
+        SetWinnerString(winner.name);
+        SceneManager.LoadScene("MainMenu");
+>>>>>>> 70360820296540e3b6724e0f0e7fe1655b0bcd85
     }
     public void SetWinnerString(string winnerName)
     {
