@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace server
@@ -11,20 +12,24 @@ namespace server
       int clientIdCheck = packet.ReadInt();
       string username = packet.ReadString();
 
-      Console.WriteLine($"{Server.clients[fromClient].udp.socket.Client.RemoteEndPoint} connected successfully and is now player {fromClient}.");
+      Console.WriteLine($"{Server.clients[fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {fromClient}.");
       if (fromClient != clientIdCheck)
       {
         Console.WriteLine($"Player \"{username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientIdCheck})!");
       }
-      // TODO: send player into game
+      Server.clients[fromClient].SendIntoGame(username);
     }
 
-  //   public static void UDPTestReceived(int fromClient, Packet packet)
-  //   {
-  //     string msg = packet.ReadString();
+    public static void PlayerMovement(int fromClient, Packet packet)
+    {
+      bool[] inputs = new bool[packet.ReadInt()];
+      for (int i = 0; i < inputs.Length; i++)
+      {
+        inputs[i] = packet.ReadBool();
+      }
+      Quaternion rotation = packet.ReadQuaternion();
 
-  //     Console.WriteLine($"Received packet via UDP. Contains message: {msg}");
-  //   }
-  // }
+      Server.clients[fromClient].player.SetInput(inputs, rotation);
+    }
   }
 }

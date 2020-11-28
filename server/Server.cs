@@ -13,7 +13,8 @@ namespace server
     public delegate void PacketHandler(int fromClient, Packet packet);
     public static Dictionary<int, PacketHandler> packetHandlers;
 
-    public static UdpClient udpClient;
+    private static TcpListener tcpListener;
+    private static UdpClient udpClient;
 
     public static void Start(int maxPlayers, int port)
     {
@@ -22,11 +23,32 @@ namespace server
 
       Console.WriteLine($"Starting server...");
       InitServerData();
+      tcpListener = new TcpListener(IPAddress.Any, Port);
+      tcpListener.Start();
+      tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 
       udpClient = new UdpClient(Port);
       udpClient.BeginReceive(UDPReceiveCallback, null);
 
       Console.WriteLine($"Server started on port {Port}.");
+    }
+
+    private static void TCPConnectCallback(IAsyncResult result)
+    {
+      TcpClient client = tcpListener.EndAcceptTcpClient(result);
+      tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
+      Console.WriteLine($"Incoming connection from {client.Client.RemoteEndPoint}...");
+
+      for (int i = 1; i <= MaxPlayers; i++)
+      {
+        if (clients[i].tcp.socket == null)
+        {
+          clients[i].tcp.Connect(client);
+          return;
+        }
+      }
+
+      Console.WriteLine($"{client.Client.RemoteEndPoint} failed to connect: Server full!");
     }
 
     private static void UDPReceiveCallback(IAsyncResult result)
@@ -77,7 +99,8 @@ namespace server
       }
       packetHandlers = new Dictionary<int, PacketHandler>()
       {
-        { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived }
+        { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
+        { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
       };
       Console.WriteLine("Initialized packets.");
     }
