@@ -8,100 +8,103 @@ using System.Threading;
 
 public class Client : MonoBehaviour
 {
-  public static Client instance;
-  public static int dataBufferSize = 4096;
+    public static Client instance;
+    public static int dataBufferSize = 4096;
 
-  public string ip = "127.0.0.1";
-  public int port = 8888;
-    
-  public int clientId = 0;
-  public TCP tcp;
-  public UDP udp;
+    public string ip = "127.0.0.1";
+    public int port = 8888;
+    public string myName = "ME";
 
-  private bool isConnected = false;
-  private delegate void PacketHandler(Packet packet);
-  private static Dictionary<int, PacketHandler> packetHandlers;
+    public int clientId = 0;
+    public TCP tcp;
+    public UDP udp;
 
-  private void Awake() 
-  {
-    Debug.Log("Client Awake");
-    if (instance == null)
+    private bool isConnected = false;
+    private delegate void PacketHandler(Packet packet);
+    private static Dictionary<int, PacketHandler> packetHandlers;
+
+    private void Awake()
     {
-      instance = this;
-    }
-    else if (instance != this)
-    {
-      Debug.Log("Client already exists. Destroying...");
-      Destroy(this);
-    }
-  }
-
-  private void Start() {
-    tcp = new TCP();
-    udp = new UDP();
-  }
-  
-  private void OnApplicationQuit() {
-    Disconnect();
-  }
-  
-  public void ConnectToServer()
-  {
-    InitializeClientData();
-    isConnected = true;
-    tcp.Connect();
-}
-    
-  public class TCP
-  {
-    public TcpClient socket;
-
-    private NetworkStream stream;
-    private Packet receivedData;
-    private byte[] receiveBuffer;
-
-    public void Connect()
-    {
-      socket = new TcpClient
-      {
-        ReceiveBufferSize = dataBufferSize,
-        SendBufferSize = dataBufferSize
-      };
-
-      receiveBuffer = new byte[dataBufferSize];
-      socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
-    }
-
-    private void ConnectCallback(IAsyncResult result)
-    {
-      socket.EndConnect(result);
-
-      if (!socket.Connected)
-      {
-        return;
-      }
-
-      stream = socket.GetStream();
-
-      receivedData = new Packet();
-
-      stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
-    }
-
-    public void SendData(Packet packet)
-    {
-      try
-      {
-        if (socket != null)
+        Debug.Log("Client Awake");
+        if (instance == null)
         {
-          stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
+            instance = this;
         }
-      }
-      catch (Exception ex)
-      {
-        Debug.Log($"Error sending data to server via TCP: {ex}");
-      }
+        else if (instance != this)
+        {
+            Debug.Log("Client already exists. Destroying...");
+            Destroy(this);
+        }
     }
+
+    private void Start()
+    {
+        tcp = new TCP();
+        udp = new UDP();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Disconnect();
+    }
+
+    public void ConnectToServer()
+    {
+        InitializeClientData();
+        isConnected = true;
+        tcp.Connect();
+    }
+
+    public class TCP
+    {
+        public TcpClient socket;
+
+        private NetworkStream stream;
+        private Packet receivedData;
+        private byte[] receiveBuffer;
+
+        public void Connect()
+        {
+            socket = new TcpClient
+            {
+                ReceiveBufferSize = dataBufferSize,
+                SendBufferSize = dataBufferSize
+            };
+
+            receiveBuffer = new byte[dataBufferSize];
+            socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
+        }
+
+        private void ConnectCallback(IAsyncResult result)
+        {
+            socket.EndConnect(result);
+
+            if (!socket.Connected)
+            {
+                return;
+            }
+
+            stream = socket.GetStream();
+
+            receivedData = new Packet();
+
+            stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+        }
+
+        public void SendData(Packet packet)
+        {
+            try
+            {
+                if (socket != null)
+                {
+                    stream.BeginWrite(packet.ToArray(), 0, packet.Length(), null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log($"Error sending data to server via TCP: {ex}");
+            }
+        }
 
         private void ReceiveCallback(IAsyncResult result)
         {
@@ -183,114 +186,114 @@ public class Client : MonoBehaviour
         }
     }
 
-  public class UDP
-  {
-    public UdpClient socket;
-    public IPEndPoint endPoint;
-
-    public UDP()
+    public class UDP
     {
-      endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
-    }
+        public UdpClient socket;
+        public IPEndPoint endPoint;
 
-    public void Connect(int localPort)
-    {
-      socket = new UdpClient(localPort);
-
-      socket.Connect(endPoint);
-      socket.BeginReceive(ReceiveCallback, null);
-
-      using (Packet packet = new Packet())
-      {
-        SendData(packet);
-      }
-    }
-
-    public void SendData(Packet packet)
-    {
-      try
-      {
-        packet.InsertInt(instance.clientId);
-        if (socket != null)
+        public UDP()
         {
-          Debug.Log("Begining Ttransmition");
-          socket.BeginSend(packet.ToArray(), packet.Length(), null, null);
-        }
-      }
-      catch (Exception ex)
-      {
-        Debug.Log($"Error sending data to server via UDP: {ex}");
-      }
-    }
-
-    private void ReceiveCallback(IAsyncResult result)
-    {
-      try
-      {
-        byte[] data = socket.EndReceive(result, ref endPoint);
-        socket.BeginReceive(ReceiveCallback, null);
-
-        if (data.Length < 4)
-        {
-          instance.Disconnect();
-          return;
+            endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
         }
 
-        HandleData(data);
-      }
-      catch
-      {
-        Disconnect();
-      }
-    }
-
-    private void HandleData(byte[] data)
-    {
-      using (Packet packet = new Packet(data))
-      {
-        int packetLength = packet.ReadInt();
-        data = packet.ReadBytes(packetLength);
-      }
-
-      ThreadManager.ExecuteOnMainThread(() =>
-      {
-        using (Packet packet = new Packet(data))
+        public void Connect(int localPort)
         {
-          int packetId = packet.ReadInt();
-          packetHandlers[packetId](packet);
-        }
-      });
-    }
-    
-    private void Disconnect()
-    {
-      instance.Disconnect();
+            socket = new UdpClient(localPort);
 
-      endPoint = null;
-      socket = null;
+            socket.Connect(endPoint);
+            socket.BeginReceive(ReceiveCallback, null);
+
+            using (Packet packet = new Packet())
+            {
+                SendData(packet);
+            }
+        }
+
+        public void SendData(Packet packet)
+        {
+            try
+            {
+                packet.InsertInt(instance.clientId);
+                if (socket != null)
+                {
+                    Debug.Log("Begining Ttransmition");
+                    socket.BeginSend(packet.ToArray(), packet.Length(), null, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Log($"Error sending data to server via UDP: {ex}");
+            }
+        }
+
+        private void ReceiveCallback(IAsyncResult result)
+        {
+            try
+            {
+                byte[] data = socket.EndReceive(result, ref endPoint);
+                socket.BeginReceive(ReceiveCallback, null);
+
+                if (data.Length < 4)
+                {
+                    instance.Disconnect();
+                    return;
+                }
+
+                HandleData(data);
+            }
+            catch
+            {
+                Disconnect();
+            }
+        }
+
+        private void HandleData(byte[] data)
+        {
+            using (Packet packet = new Packet(data))
+            {
+                int packetLength = packet.ReadInt();
+                data = packet.ReadBytes(packetLength);
+            }
+
+            ThreadManager.ExecuteOnMainThread(() =>
+            {
+                using (Packet packet = new Packet(data))
+                {
+                    int packetId = packet.ReadInt();
+                    packetHandlers[packetId](packet);
+                }
+            });
+        }
+
+        private void Disconnect()
+        {
+            instance.Disconnect();
+
+            endPoint = null;
+            socket = null;
+        }
     }
-  }
-  private void InitializeClientData()
-  {
-    packetHandlers = new Dictionary<int, PacketHandler>()
+    private void InitializeClientData()
+    {
+        packetHandlers = new Dictionary<int, PacketHandler>()
     {
       { (int)ServerPackets.welcome, ClientHandle.Welcome },
       { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
       { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
       { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
     };
-    Debug.Log("Initialized packets.");
-  }
-  
-  private void Disconnect()
-  {
-    if (isConnected)
-    {
-      isConnected = false;
-      tcp.socket.Close();
-      udp.socket.Close();
-
-      Debug.Log("Disconnected from server.");
+        Debug.Log("Initialized packets.");
     }
-  }
+
+    private void Disconnect()
+    {
+        if (isConnected)
+        {
+            isConnected = false;
+            tcp.socket.Close();
+            udp.socket.Close();
+
+            Debug.Log("Disconnected from server.");
+        }
+    }
 }

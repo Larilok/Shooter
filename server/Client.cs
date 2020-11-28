@@ -111,6 +111,8 @@ namespace server
             using (Packet packet = new Packet(packetBytes))
             {
               int packetId = packet.ReadInt();
+              // Console.WriteLine($"packetId: {packetId}");
+              
               Server.packetHandlers[packetId](id, packet);
             }
           });
