@@ -9,8 +9,8 @@ public class GM : MonoBehaviour
     public int alivePlayers = 4;
     public static GM instance;
     
-    public GameObject player;
-    public GameObject myPlayer;
+    public GameObject playerPrefab;
+    public GameObject myPlayerPrefab;
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     //public List<GameObject> players;
 
@@ -64,13 +64,14 @@ public class GM : MonoBehaviour
     
     public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
     {
+        GameObject player;
         if (id == Client.instance.clientId)
         {
-            player = Instantiate(myPlayer, position, rotation);
+            player = Instantiate(myPlayerPrefab, position, rotation);
         }
         else
         {
-            player = Instantiate(player, position, rotation);
+            player = Instantiate(playerPrefab, position, rotation);
         }
 
         player.GetComponent<PlayerManager>().id = id;
