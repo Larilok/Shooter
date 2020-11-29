@@ -15,7 +15,7 @@ namespace server
       Thread mainThread = new Thread(new ThreadStart(MainThread));
       mainThread.Start();
 
-      Server.Start(50, 8888);
+      Server.Start(4, 8888);
     }
 
     private static void MainThread()
