@@ -7,11 +7,13 @@ public class ClientSend : MonoBehaviour
 
   private static void SendTCPData(Packet packet)
   {
+    Debug.Log("TCP Send");
     packet.WriteLength();
     Client.instance.tcp.SendData(packet);
   }
   private static void SendUDPData(Packet packet)
   {
+    Debug.Log("UDP Send");
     packet.WriteLength();
     Client.instance.udp.SendData(packet);
   }
@@ -30,6 +32,7 @@ public class ClientSend : MonoBehaviour
   
   public static void PlayerMovement(bool[] inputs)
   {
+    Debug.Log("Pl move");
     using (Packet packet = new Packet((int)ClientPackets.playerMovement))
     {
       packet.Write(inputs.Length);

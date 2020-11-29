@@ -43,6 +43,8 @@ namespace server
       {
         if (clients[i].tcp.socket == null)
         {
+          Console.WriteLine($"Connecting....");
+          
           clients[i].tcp.Connect(client);
           return;
         }

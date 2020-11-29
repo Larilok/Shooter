@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuGM : MonoBehaviour
 {
@@ -33,5 +34,10 @@ public class MainMenuGM : MonoBehaviour
     public void setPort(string newPort)
     {
         Client.FindObjectOfType<Client>().port = System.Int32.Parse(newPort);
+    }
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene("Main");
+        Debug.Log("AfterLC");
     }
 }

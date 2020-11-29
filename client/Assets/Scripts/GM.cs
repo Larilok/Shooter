@@ -26,6 +26,7 @@ public class GM : MonoBehaviour
             Destroy(this);
         }
 
+        Client.instance.ConnectToServer();
     }
 
     // Update is called once per frame

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
@@ -12,12 +13,18 @@ namespace server
     public Player player;
     public TCP tcp;
     public UDP udp;
+    
+    private static List<Vector3> coordPos = new List<Vector3> ();  
 
     public Client(int clientId)
     {
       this.id = clientId;
       tcp = new TCP(id);
       udp = new UDP(id);
+      coordPos.Add(new Vector3(-12,6,0));
+      coordPos.Add(new Vector3(12,6,0));
+      coordPos.Add(new Vector3(-12,-6,0));
+      coordPos.Add(new Vector3(12,-6,0));
     }
     public class TCP
     {
@@ -36,6 +43,7 @@ namespace server
       public void Connect(TcpClient socket)
       {
         this.socket = socket;
+        
         socket.ReceiveBufferSize = dataBufferSize;
         socket.SendBufferSize = dataBufferSize;
 
@@ -46,7 +54,7 @@ namespace server
 
         stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
-        ServerSend.Welcome(id, "Welcome to the server!");
+        ServerSend.Welcome(id, "Welcome from the server!");
       }
 
       public void SendData(Packet packet)
@@ -69,9 +77,11 @@ namespace server
         try
         {
           int byteLength = stream.EndRead(result);
+          Console.WriteLine($"ByteL: {byteLength}");
+          
           if (byteLength <= 0)
           {
-            Server.clients[id].Disconnect();
+            // Server.clients[id].Disconnect();
             return;
           }
 
@@ -111,7 +121,7 @@ namespace server
             using (Packet packet = new Packet(packetBytes))
             {
               int packetId = packet.ReadInt();
-              // Console.WriteLine($"packetId: {packetId}");
+              Console.WriteLine($"packetId: {packetId}");
               
               Server.packetHandlers[packetId](id, packet);
             }
@@ -186,7 +196,7 @@ namespace server
     }
     public void SendIntoGame(string playerName)
     {
-      player = new Player(id, playerName, new Vector3(0, 0, 0));
+      player = new Player(id, playerName, coordPos[id-1]);
 
       foreach (Client client in Server.clients.Values)
       {

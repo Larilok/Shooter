@@ -10,6 +10,11 @@ namespace server
     public static void WelcomeReceived(int fromClient, Packet packet)
     {
       int clientIdCheck = packet.ReadInt();
+      Console.WriteLine($"ClientId: {clientIdCheck}");
+      Console.WriteLine($"ClientId: {Server.clients[clientIdCheck].tcp}");
+      Console.WriteLine($"ClientId: {Server.clients[clientIdCheck].tcp.socket}");
+      Console.WriteLine($"ClientId: {Server.clients[clientIdCheck].tcp.socket.Client}");
+      
       string username = packet.ReadString();
 
       Console.WriteLine($"{Server.clients[fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {fromClient}.");

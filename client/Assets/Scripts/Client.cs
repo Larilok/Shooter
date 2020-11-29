@@ -29,6 +29,9 @@ public class Client : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            tcp = new TCP();
+            udp = new UDP();
+
         }
         else if (instance != this)
         {
@@ -39,8 +42,6 @@ public class Client : MonoBehaviour
 
     private void Start()
     {
-        tcp = new TCP();
-        udp = new UDP();
     }
 
     private void OnApplicationQuit()
@@ -70,6 +71,9 @@ public class Client : MonoBehaviour
                 ReceiveBufferSize = dataBufferSize,
                 SendBufferSize = dataBufferSize
             };
+            Debug.Log(Client.instance);
+
+            Debug.Log("abc" + socket);
 
             receiveBuffer = new byte[dataBufferSize];
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
@@ -200,6 +204,7 @@ public class Client : MonoBehaviour
         {
             socket = new UdpClient(localPort);
 
+            Debug.Log("UDP connect");
             socket.Connect(endPoint);
             socket.BeginReceive(ReceiveCallback, null);
 
@@ -216,7 +221,9 @@ public class Client : MonoBehaviour
                 packet.InsertInt(instance.clientId);
                 if (socket != null)
                 {
-                    Debug.Log("Begining Ttransmition");
+                    Debug.Log(instance.clientId);
+                    Debug.Log(packet.Length());
+
                     socket.BeginSend(packet.ToArray(), packet.Length(), null, null);
                 }
             }
