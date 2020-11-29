@@ -64,14 +64,15 @@ public class PlayerController : MonoBehaviour
     }
     private void handleMovement2()
     {
+        Debug.Log("HANDLING MOVEMENT");
         Vector3 input = Vector3.zero;
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
-
+        //Debug.Log("X: " + input.x);
         Vector3 direction = input.normalized;
 
         Vector3 movement = direction * runSpeed * Time.fixedDeltaTime;
-
+        Debug.Log(movement.x + "," + movement.y);
         playerBody.MovePosition(transform.position + movement);
     }
     private void handleAiming()

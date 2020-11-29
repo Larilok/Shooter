@@ -595,8 +595,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxPlayers: 4
   alivePlayers: 4
-  playerPrefab: {fileID: 0}
-  myPlayerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 1087430193795072035, guid: 673f2a4ad6ede104498dfe11b6c05943,
+    type: 3}
+  myPlayerPrefab: {fileID: 7530165630269291949, guid: 18271e227e9ae3d4fa26a34561fd2ed9,
+    type: 3}
 --- !u!114 &1424540274
 MonoBehaviour:
   m_ObjectHideFlags: 0
