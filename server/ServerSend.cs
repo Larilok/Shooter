@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 namespace server
@@ -101,6 +102,16 @@ namespace server
             {
                 packet.Write(hitPlayer.id);
                 packet.Write(hitPlayer.health);
+                SendTCPData(toClient, packet);
+            }
+        }
+
+        internal static void SpawnBullet(int toClient, Vector3 pos, Vector2 rot)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.playerPosition))
+            {
+                packet.Write(pos);
+                packet.Write(rot);
                 SendTCPData(toClient, packet);
             }
         }

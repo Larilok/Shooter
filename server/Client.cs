@@ -13,18 +13,18 @@ namespace server
     public Player player;
     public TCP tcp;
     public UDP udp;
-    
-    private static List<Vector3> coordPos = new List<Vector3> ();  
+
+    private static List<Vector3> coordPos = new List<Vector3>();
 
     public Client(int clientId)
     {
       this.id = clientId;
       tcp = new TCP(id);
       udp = new UDP(id);
-      coordPos.Add(new Vector3(-12,6,0));
-      coordPos.Add(new Vector3(12,6,0));
-      coordPos.Add(new Vector3(-12,-6,0));
-      coordPos.Add(new Vector3(12,-6,0));
+      coordPos.Add(new Vector3(-12, 6, 0));
+      coordPos.Add(new Vector3(12, 6, 0));
+      coordPos.Add(new Vector3(-12, -6, 0));
+      coordPos.Add(new Vector3(12, -6, 0));
     }
     public class TCP
     {
@@ -43,7 +43,7 @@ namespace server
       public void Connect(TcpClient socket)
       {
         this.socket = socket;
-        
+
         socket.ReceiveBufferSize = dataBufferSize;
         socket.SendBufferSize = dataBufferSize;
 
@@ -78,7 +78,7 @@ namespace server
         {
           int byteLength = stream.EndRead(result);
           Console.WriteLine($"ByteL: {byteLength}");
-          
+
           if (byteLength <= 0)
           {
             Server.clients[id].Disconnect();
@@ -122,7 +122,7 @@ namespace server
             {
               int packetId = packet.ReadInt();
               Console.WriteLine($"packetId: {packetId}");
-              
+
               Server.packetHandlers[packetId](id, packet);
             }
           });
@@ -196,7 +196,7 @@ namespace server
     }
     public void SendIntoGame(string playerName)
     {
-      player = new Player(id, playerName, coordPos[id-1]);
+      player = new Player(id, playerName, coordPos[id - 1]);
 
       // spawn a new player on other clients
       foreach (Client client in Server.clients.Values)
@@ -209,7 +209,7 @@ namespace server
           }
         }
       }
-      
+
       // spawn all players on a new player client
       foreach (Client client in Server.clients.Values)
       {
@@ -219,7 +219,21 @@ namespace server
         }
       }
     }
-    
+
+    public void SendBulletIntoGame(Vector3 pos, Vector2 rot)
+    {
+      foreach (Client client in Server.clients.Values)
+      {
+        if (client.player != null)
+        {
+          if (client.id != id)
+          {
+            ServerSend.SpawnBullet(client.id, pos, rot);
+          }
+        }
+      }
+
+    }
     public void SendHitIntoGame(int hitPlayerId)
     {
       Player hitPlayer = Server.clients[hitPlayerId].player;
@@ -233,13 +247,13 @@ namespace server
           }
         }
       }
-      
+
     }
 
+
+    /// <summary>Disconnects the client and stops all network traffic.</summary>
     private void Disconnect()
     {
-      Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
-      
       ThreadManager.ExecuteOnMainThread(() =>
       {
         player = null;

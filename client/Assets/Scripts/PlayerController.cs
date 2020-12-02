@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
             bullet.SetActive(true);
             Vector2 velocity = new Vector2(shotPos.x * 20, shotPos.y * 20);
             bullet.GetComponent<Rigidbody2D>().velocity = velocity;
-            StartCoroutine(DeactivateBullet(bullet, 10));
+            //StartCoroutine(DeactivateBullet(bullet, 10));
             ClientSend.BulletSpawn(muzzle.transform.position, velocity);
         }
     }
