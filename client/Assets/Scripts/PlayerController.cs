@@ -51,8 +51,10 @@ public class PlayerController : MonoBehaviour
             bullet.transform.position = muzzle.transform.position;
             //bullet.transform.rotation = muzzle.transform.rotation;
             bullet.SetActive(true);
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(shotPos.x * 20, shotPos.y * 20);
+            Vector2 velocity = new Vector2(shotPos.x * 20, shotPos.y * 20);
+            bullet.GetComponent<Rigidbody2D>().velocity = velocity;
             StartCoroutine(DeactivateBullet(bullet, 10));
+            ClientSend.Bullet(muzzle.transform.position, velocity);
         }
     }
 
@@ -71,9 +73,8 @@ public class PlayerController : MonoBehaviour
         // Debug.Log($"Horiz: {horizontal}, Vert: {vertical}");
         (bool, float) aim = getAim();
         ClientSend.PlayerMovement(input, aim.Item1, aim.Item2);
-        // Debug.Log($"Velocity prev {playerBody.velocity} ");
+        
         // playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
-
         // Debug.Log($"Velocity after {playerBody.velocity} ");
     }
     private (bool, float) getAim()

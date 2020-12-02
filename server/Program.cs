@@ -34,6 +34,7 @@ namespace server
                     if (nextLoop > DateTime.Now)
                     {
                         Console.Write($"\n{nextLoop - DateTime.Now}\n");
+                        Console.Out.Flush();
                         Thread.Sleep(nextLoop - DateTime.Now);
                     }
                 }

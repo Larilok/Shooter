@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,5 +47,10 @@ public class ClientSend : MonoBehaviour
 
             SendUDPData(packet);
         }
+    }
+
+    public static void Bullet(Vector3 position, Vector2 velocity)
+    {
+        
     }
 }

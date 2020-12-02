@@ -34,10 +34,10 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"Position: {position}");
 
         GM.players[id].transform.position = position;
-        bool invert = packet.ReadBool();
+                bool invert = packet.ReadBool();
         float angle = packet.ReadFloat();
         Vector3 localScale = Vector3.one * 2;
-        if (invert)
+        if(invert)
         {
             localScale.y = -2f;
         }
