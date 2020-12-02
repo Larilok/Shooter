@@ -68,6 +68,7 @@ public class ClientHandle : MonoBehaviour
         bullet.transform.position = bulletPosition;
         bullet.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
         bullet.SetActive(true);
+        bullet.GetComponent<Bullet>().Deactivate(10);
     }
 
     public static void PlayerRotation(Packet packet)
