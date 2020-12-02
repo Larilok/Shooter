@@ -58,6 +58,7 @@ public class ClientHandle : MonoBehaviour
         {
             //GM.players[hitPlayerId].gameObject.SetActive(false);
             Destroy(GM.players[hitPlayerId].gameObject);
+            GM.players.Remove(hitPlayerId);
         }
     }
 
@@ -78,5 +79,13 @@ public class ClientHandle : MonoBehaviour
         //Quaternion rotation = packet.ReadQuaternion();
 
         //GM.players[id].transform.rotation = rotation;
+    }
+    
+    public static void PlayerDisconnected(Packet packet)
+    {
+        int playerId = packet.ReadInt();
+        Destroy(GM.players[playerId].gameObject);
+        GM.players.Remove(playerId);
+
     }
 }

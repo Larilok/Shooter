@@ -58,7 +58,7 @@ namespace server
         IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
         byte[] data = udpClient.EndReceive(result, ref clientEndPoint);
         udpClient.BeginReceive(UDPReceiveCallback, null);
-        Console.Write("Received: " + data);
+        // Console.Write("Received: " + data);
         if (data.Length < 4)
         {
           return;

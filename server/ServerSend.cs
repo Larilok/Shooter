@@ -115,6 +115,17 @@ namespace server
                 SendTCPData(toClient, packet);
             }
         }
+        
+        public static void PlayerDisconnected(int playerId)
+        {
+            Console.WriteLine($"Player {playerId} disconnected");
+            
+            using (Packet packet = new Packet((int)ServerPackets.playerDisconnected))
+            {
+                packet.Write(playerId);
+                SendTCPDataToAll(packet);
+            }
+        }
         #endregion
 
     }
