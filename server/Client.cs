@@ -220,7 +220,7 @@ namespace server
       }
     }
 
-    public void SendBulletIntoGame(Vector3 pos, Vector2 rot)
+    public void SendBulletIntoGame(Vector3 pos, Vector2 vel)
     {
       foreach (Client client in Server.clients.Values)
       {
@@ -228,7 +228,7 @@ namespace server
         {
           if (client.id != id)
           {
-            ServerSend.SpawnBullet(client.id, pos, rot);
+            ServerSend.SpawnBullet(client.id, pos, vel);
           }
         }
       }

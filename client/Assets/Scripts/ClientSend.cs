@@ -53,6 +53,7 @@ public class ClientSend : MonoBehaviour
         using (Packet packet = new Packet((int)ClientPackets.bulletSpawn))
         {
             //packet.Write(position.magnitude + velocity.magnitude);
+            Debug.Log($"CLI SEND Bullet Pos: {position.x} {position.y} {position.z}, vel: {velocity.x} {velocity.y}");
             packet.Write(position);
             packet.Write(velocity);
             SendUDPData(packet);

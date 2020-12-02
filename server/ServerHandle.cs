@@ -45,10 +45,11 @@ namespace server
 
         internal static void BulletSpawn(int fromClient, Packet packet)
         {
-            int playerId = packet.ReadInt();
+            //int playerId = packet.ReadInt();
             Vector3 pos = packet.ReadVector3();
-            Vector2 rot = packet.ReadVector2();
-            Server.clients[fromClient].SendBulletIntoGame(pos, rot);
+            Vector2 vel = packet.ReadVector2();
+            Console.WriteLine($"\n\nSERVER RECEIVE: Bullet: Pos: {pos.X} {pos.Y} {pos.Z}, Vel: {pos.X} {pos.Y}\n");
+            Server.clients[fromClient].SendBulletIntoGame(pos, vel);
         }
     }
 }
