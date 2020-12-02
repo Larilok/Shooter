@@ -5,10 +5,18 @@ using System.Numerics;
 
 namespace server
 {
+<<<<<<< HEAD
+  public class Player
+  {
+    public int id;
+    public string username;
+    public int health = 100;
+=======
     public class Player
     {
         public int id;
         public string username;
+>>>>>>> bd46f7e1cae05ad409e4a863d9d7c8c5fef3c480
 
         public Vector3 position;
         public Quaternion rotation;
@@ -86,4 +94,9 @@ namespace server
             
         }
     }
+    
+    public void SetHealth(int health) {
+      this.health = health;
+    }
+  }
 }

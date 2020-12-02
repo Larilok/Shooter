@@ -33,7 +33,6 @@ public class ClientSend : MonoBehaviour
 
     public static void PlayerMovement(bool[] inputs, bool invert, float aimAngle)
     {
-        // Debug.Log("Pl move");
         using (Packet packet = new Packet((int)ClientPackets.playerMovement))
         {
             packet.Write(inputs.Length);
@@ -49,8 +48,19 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     public static void Bullet(Vector3 position, Vector2 velocity)
     {
         
+=======
+    public static void PlayerHit(int clientId)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.playerHit))
+        {
+            packet.Write(clientId);
+
+            SendTCPData(packet);
+        }
+>>>>>>> 7e71e107ae7fed7d9eb819e1bd86baba63b5924c
     }
 }

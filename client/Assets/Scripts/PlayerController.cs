@@ -67,16 +67,17 @@ public class PlayerController : MonoBehaviour
         if (vertical == -1) input[1] = true;
         if (horizontal == -1) input[2] = true;
         if (horizontal == 1) input[3] = true;
-        // foreach(bool i in input) {
-        //     Debug.Log($"I: {i}");
-        // }
-        // Debug.Log($"Horiz: {horizontal}, Vert: {vertical}");
+
         (bool, float) aim = getAim();
         ClientSend.PlayerMovement(input, aim.Item1, aim.Item2);
+<<<<<<< HEAD
         
         // playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
         // Debug.Log($"Velocity after {playerBody.velocity} ");
+=======
+>>>>>>> 7e71e107ae7fed7d9eb819e1bd86baba63b5924c
     }
+
     private (bool, float) getAim()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -97,25 +98,22 @@ public class PlayerController : MonoBehaviour
         }
         return (invert, angle);
     }
-    private void handleMovement2()
-    {
-        Debug.Log("HANDLING MOVEMENT");
-        Vector3 input = Vector3.zero;
-        input.x = Input.GetAxisRaw("Horizontal");
-        input.y = Input.GetAxisRaw("Vertical");
-        //Debug.Log("X: " + input.x);
-        Vector3 direction = input.normalized;
 
-        Vector3 movement = direction * runSpeed * Time.fixedDeltaTime;
-        Debug.Log(movement.x + "," + movement.y);
-        playerBody.MovePosition(transform.position + movement);
-    }
+    // private void handleMovement2()
+    // {
+    //     Debug.Log("HANDLING MOVEMENT");
+    //     Vector3 input = Vector3.zero;
+    //     input.x = Input.GetAxisRaw("Horizontal");
+    //     input.y = Input.GetAxisRaw("Vertical");
+    //     //Debug.Log("X: " + input.x);
+    //     Vector3 direction = input.normalized;
+    // }
+
     private void handleAiming()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 aimDir = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-        //Debug.Log("Angle: " + angle);
         Vector3 localScale = Vector3.one*2;
         if(angle > 90 || angle < -90)
         {
