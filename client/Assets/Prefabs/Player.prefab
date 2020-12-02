@@ -224,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
+  aim: {fileID: 1087430192880064530}
 --- !u!1 &2153611827173387375
 GameObject:
   m_ObjectHideFlags: 0

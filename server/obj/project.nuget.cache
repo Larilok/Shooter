@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bJTZTRR0N4vyDR+4tOvWMSSU+FkJJtuaiUQ/HyT6Bw03lFAS8M4GfdA6K4/ku9gakeEsqUGueIBdxpBl7Bf+fQ==",
+  "dgSpecHash": "BuhFdWkcaY6l6fQj+kKd98isy0vd+Nm4+RBd5jvR1ZaG/RXuw7UnhKfvIUdRor0BdOQ0A5qlH5yuGGRx94XRoA==",
   "success": true,
-  "projectFilePath": "D:\\01_Code\\2020\\C#\\client-server-multiplayer-game\\server\\server.csproj",
+  "projectFilePath": "D:\\Programming\\Code\\C#\\Shooter\\server\\server.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

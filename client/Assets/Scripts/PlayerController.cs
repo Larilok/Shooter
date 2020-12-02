@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         handleShooting();
-        handleAiming();
+        //handleAiming();
     }
     private void FixedUpdate()
     {
@@ -69,11 +69,32 @@ public class PlayerController : MonoBehaviour
         //     Debug.Log($"I: {i}");
         // }
         // Debug.Log($"Horiz: {horizontal}, Vert: {vertical}");
-        ClientSend.PlayerMovement(input);
+        (bool, float) aim = getAim();
+        ClientSend.PlayerMovement(input, aim.Item1, aim.Item2);
         // Debug.Log($"Velocity prev {playerBody.velocity} ");
         // playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
 
         // Debug.Log($"Velocity after {playerBody.velocity} ");
+    }
+    private (bool, float) getAim()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 aimDir = (mousePosition - transform.position).normalized;
+        float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+        //Debug.Log("Angle: " + angle);
+        //Vector3 localScale = Vector3.one * 2;
+        bool invert;
+        if (angle > 90 || angle < -90)
+        {
+            //localScale.y = -2f;
+            invert = true;
+        }
+        else
+        {
+            //localScale.y = +2f;
+            invert = false;
+        }
+        return (invert, angle);
     }
     private void handleMovement2()
     {
@@ -104,6 +125,7 @@ public class PlayerController : MonoBehaviour
         }
         aim.transform.localScale = localScale;
         aim.transform.eulerAngles = new Vector3(0, 0, angle);
+
     }
 
     private IEnumerator DeactivateBullet(GameObject toDeactivate, int deactivateIn)

@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\micha\\.nuget\\packages\\": {}
+    "C:\\Users\\illya\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\01_Code\\2020\\C#\\client-server-multiplayer-game\\server\\server.csproj",
+      "projectUniqueName": "D:\\Programming\\Code\\C#\\Shooter\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "D:\\01_Code\\2020\\C#\\client-server-multiplayer-game\\server\\server.csproj",
-      "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-      "outputPath": "D:\\01_Code\\2020\\C#\\client-server-multiplayer-game\\server\\obj\\",
+      "projectPath": "D:\\Programming\\Code\\C#\\Shooter\\server\\server.csproj",
+      "packagesPath": "C:\\Users\\illya\\.nuget\\packages\\",
+      "outputPath": "D:\\Programming\\Code\\C#\\Shooter\\server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\illya\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
