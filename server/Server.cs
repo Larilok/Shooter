@@ -101,6 +101,8 @@ namespace server
       {
         { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
         { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
+        { (int)ClientPackets.enemyHit, ServerHandle.EnemyHit },
+        { (int)ClientPackets.bulletSpawn, ServerHandle.BulletSpawn },
       };
       Console.WriteLine("Initialized packets.");
     }

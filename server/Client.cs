@@ -198,7 +198,7 @@ namespace server
     {
       player = new Player(id, playerName, coordPos[id-1]);
 
-      // spawn other players on a client
+      // spawn a new player on other clients
       foreach (Client client in Server.clients.Values)
       {
         if (client.player != null)
@@ -210,7 +210,7 @@ namespace server
         }
       }
       
-      // spawn a player on other clients
+      // spawn all players on a new player client
       foreach (Client client in Server.clients.Values)
       {
         if (client.player != null)
@@ -218,6 +218,21 @@ namespace server
           ServerSend.SpawnPlayer(client.id, player);
         }
       }
+    }
+    
+    public void SendHitIntoGame(int hitPlayerId)
+    {
+      foreach (Client client in Server.clients.Values)
+      {
+        if (client.player != null)
+        {
+          if (client.id != id)
+          {
+            ServerSend.PlayerHealth(id, client.player);
+          }
+        }
+      }
+      
     }
 
     private void Disconnect()

@@ -5,18 +5,18 @@ using System.Numerics;
 
 namespace server
 {
-<<<<<<< HEAD
-  public class Player
-  {
-    public int id;
-    public string username;
-    public int health = 100;
-=======
     public class Player
     {
         public int id;
         public string username;
->>>>>>> bd46f7e1cae05ad409e4a863d9d7c8c5fef3c480
+        public int health = 100;
+
+        public int damage = 20;
+    public List<(Vector3, Vector2)> bulletList;
+
+    public float damageMultiplier = 1;
+        public float moveSpeedMultiplier = 1;
+        public float bulletSpeedMultiplier = 1;
 
         public Vector3 position;
         public Quaternion rotation;
@@ -32,6 +32,7 @@ namespace server
         {
             this.id = id;
             this.username = username;
+            this.bulletList = new List<(Vector3, Vector2)>();
             position = spawnPosition;
             rotation = Quaternion.Identity;
 
@@ -91,12 +92,19 @@ namespace server
             this.inputs = inputs;
             this.invertGunSprite = invert;
             this.gunRotation = aim;
-            
+
+        }
+        public void SetHealth(int hitByClientId)
+        {
+            Player hitByPlayer = Server.clients[hitByClientId].player;
+            this.health -= hitByPlayer.CalculateDamage();
+        }
+
+        public int CalculateDamage()
+        {
+          return (int)(this.damage * this.damageMultiplier);
         }
     }
-    
-    public void SetHealth(int health) {
-      this.health = health;
-    }
-  }
+
+
 }

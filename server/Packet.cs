@@ -11,7 +11,7 @@ namespace server
     spawnPlayer,
     playerPosition,
     playerRotation,
-    enemyHit
+    playerHit
   }
 
   /// <summary>Sent from client to server.</summary>
@@ -19,7 +19,8 @@ namespace server
   {
     welcomeReceived = 1,
     playerMovement,
-    playerHit
+    enemyHit,
+    bulletSpawn
   }
 
   public class Packet : IDisposable

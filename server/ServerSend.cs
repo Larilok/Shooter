@@ -94,6 +94,16 @@ namespace server
                 SendUDPDataToAll(packet);
             }
         }
+        
+        public static void PlayerHealth(int toClient, Player player)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.playerPosition))
+            {
+                packet.Write(player.id);
+                packet.Write(player.health);
+                SendTCPData(toClient, packet);
+            }
+        }
         #endregion
 
     }

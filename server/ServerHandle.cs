@@ -33,5 +33,14 @@ namespace server
 
             Server.clients[fromClient].player.SetInput(inputs, invert, angle);
         }
+        
+        public static void EnemyHit(int fromClient, Packet packet)
+        {
+            int playerId = packet.ReadInt();
+            Server.clients[playerId].player.SetHealth(fromClient);
+            Console.WriteLine($"{playerId} was hit by player {fromClient}.");
+            Server.clients[fromClient].SendHitIntoGame(playerId);
+
+        }
     }
 }
