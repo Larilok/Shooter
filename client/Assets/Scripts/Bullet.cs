@@ -28,7 +28,16 @@ public class Bullet : MonoBehaviour
             //     if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
             // }
         }
-        
+        StopCoroutine("DeactivateRoutine");
         gameObject.SetActive(false);
+    }
+    public void Deactivate(int deactivateIn)
+    {
+        StartCoroutine(DeactivateRoutine(deactivateIn));
+    }
+    private IEnumerator DeactivateRoutine(int deactivateIn)
+    {
+        yield return new WaitForSeconds(deactivateIn);
+        this.gameObject.SetActive(false);
     }
 }
