@@ -108,7 +108,7 @@ namespace server
 
         internal static void SpawnBullet(int toClient, Vector3 pos, Vector2 vel)
         {
-            Console.WriteLine($"\n\nSERVER SEND: Bullet: Pos: {pos.X} {pos.Y} {pos.Z}, Vel: {pos.X} {pos.Y}\n");
+            Console.WriteLine($"\n\nSERVER SEND: Bullet: Pos: {pos.X} {pos.Y} {pos.Z}, Vel: {vel.X} {vel.Y}\n");
             using (Packet packet = new Packet((int)ServerPackets.bulletSpawn))
             {
                 packet.Write(pos);

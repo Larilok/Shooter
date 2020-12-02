@@ -70,8 +70,8 @@ public class ClientHandle : MonoBehaviour
         //Debug.Log("Spawning Bullet");
         GameObject bullet = ObjectPool.SharedInstance.GetObject();
         bullet.transform.position = bulletPosition;
-        bullet.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
         bullet.SetActive(true);
+        bullet.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
         bullet.GetComponent<Bullet>().Deactivate(10);
     }
 
