@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public delegate void GameOver();
     public static event GameOver gameOverEvent;
+    public IEnumerator deactivate;
     void Start()
     {
     }
@@ -28,12 +29,16 @@ public class Bullet : MonoBehaviour
             //     if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
             // }
         }
-        StopCoroutine("DeactivateRoutine");
+        Debug.Log($"Routine: <{deactivate}>");
+        //if(deactivate != null) 
+            //StopCoroutine(deactivate);
+        StopAllCoroutines();
         gameObject.SetActive(false);
     }
     public void Deactivate(int deactivateIn)
     {
-        StartCoroutine(DeactivateRoutine(deactivateIn));
+        deactivate = DeactivateRoutine(deactivateIn);
+        StartCoroutine(deactivate);
     }
     private IEnumerator DeactivateRoutine(int deactivateIn)
     {

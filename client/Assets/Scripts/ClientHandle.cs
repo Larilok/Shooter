@@ -31,7 +31,7 @@ public class ClientHandle : MonoBehaviour
     {
         int playerId = packet.ReadInt();
         Vector3 position = packet.ReadVector3();
-        Debug.Log($"Position: {position}");
+        //Debug.Log($"Position: {position}");
 
         GM.players[playerId].transform.position = position;
         bool invert = packet.ReadBool();
