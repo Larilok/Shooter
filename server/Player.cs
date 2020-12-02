@@ -58,7 +58,6 @@ namespace server
       position += moveDirection * moveSpeed;
 
       ServerSend.PlayerPosition(this);
-      ServerSend.PlayerRotation(this);
     }
 
     public void SetInput(bool[] inputs, Quaternion rotation)
