@@ -34,13 +34,26 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"Position: {position}");
 
         GM.players[id].transform.position = position;
+        bool invert = packet.ReadBool();
+        float angle = packet.ReadFloat();
+        Vector3 localScale = Vector3.one * 2;
+        if (invert)
+        {
+            localScale.y = -2f;
+        }
+        else
+        {
+            localScale.y = +2f;
+        }
+        GM.players[id].aim.transform.localScale = localScale;
+        GM.players[id].aim.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     public static void PlayerRotation(Packet packet)
     {
         int id = packet.ReadInt();
-        Quaternion rotation = packet.ReadQuaternion();
+        //Quaternion rotation = packet.ReadQuaternion();
 
-        GM.players[id].transform.rotation = rotation;
+        //GM.players[id].transform.rotation = rotation;
     }
 }

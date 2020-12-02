@@ -5,52 +5,55 @@ using UnityEngine;
 public class ClientSend : MonoBehaviour
 {
 
-  private static void SendTCPData(Packet packet)
-  {
-    Debug.Log("TCP Send");
-    packet.WriteLength();
-    Client.instance.tcp.SendData(packet);
-  }
-  private static void SendUDPData(Packet packet)
-  {
-    // Debug.Log("UDP Send");
-    packet.WriteLength();
-    Client.instance.udp.SendData(packet);
-  }
-  
-  
-  public static void WelcomeReceived()
-  {
-    using (Packet packet = new Packet((int)ClientPackets.welcomeReceived))
+    private static void SendTCPData(Packet packet)
     {
-        packet.Write(Client.instance.clientId);
-        packet.Write(Client.instance.myName);
-
-        SendTCPData(packet);
+        Debug.Log("TCP Send");
+        packet.WriteLength();
+        Client.instance.tcp.SendData(packet);
     }
-  }
-  
-  public static void PlayerMovement(bool[] inputs)
-  {
-    using (Packet packet = new Packet((int)ClientPackets.playerMovement))
+    private static void SendUDPData(Packet packet)
     {
-      packet.Write(inputs.Length);
-      foreach (bool input in inputs)
-      {
-        packet.Write(input);
-      }
-      packet.Write(GM.players[Client.instance.clientId].transform.rotation);
-
-      SendUDPData(packet);
+        // Debug.Log("UDP Send");
+        packet.WriteLength();
+        Client.instance.udp.SendData(packet);
     }
-  }
-  
-  public static void PlayerHit(int clientId) {
-    using (Packet packet = new Packet((int)ClientPackets.playerHit))
+
+
+    public static void WelcomeReceived()
     {
-        packet.Write(clientId);
+        using (Packet packet = new Packet((int)ClientPackets.welcomeReceived))
+        {
+            packet.Write(Client.instance.clientId);
+            packet.Write(Client.instance.myName);
 
-        SendTCPData(packet);
+            SendTCPData(packet);
+        }
     }
-  }
+
+    public static void PlayerMovement(bool[] inputs, bool invert, float aimAngle)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.playerMovement))
+        {
+            packet.Write(inputs.Length);
+            foreach (bool input in inputs)
+            {
+                packet.Write(input);
+            }
+            //packet.Write(GM.players[Client.instance.clientId].transform.rotation);
+            packet.Write(invert);
+            packet.Write(aimAngle);
+
+            SendUDPData(packet);
+        }
+    }
+
+    public static void PlayerHit(int clientId)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.playerHit))
+        {
+            packet.Write(clientId);
+
+            SendTCPData(packet);
+        }
+    }
 }
