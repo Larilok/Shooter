@@ -33,9 +33,12 @@ namespace server
 
                     if (nextLoop > DateTime.Now)
                     {
-                        Console.Write($"\n{nextLoop - DateTime.Now}\n");
-                        Console.Out.Flush();
-                        Thread.Sleep(nextLoop - DateTime.Now);
+                        if((nextLoop - DateTime.Now).CompareTo(new TimeSpan()) == 1 ) {
+                            Thread.Sleep(nextLoop - DateTime.Now);
+                        } else {
+                            Console.Write($"\n{nextLoop - DateTime.Now}\n");
+                            Console.Out.Flush();
+                        }
                     }
                 }
             }

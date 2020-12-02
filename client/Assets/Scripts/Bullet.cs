@@ -17,17 +17,17 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerManager playerManager = collision.gameObject.GetComponent<PlayerManager>();
-        if(playerManager != null)
+        Player player = collision.gameObject.GetComponent<Player>();
+        if(player != null)
         {
-            ClientSend.PlayerHit(playerManager.id);
-            // collision.gameObject.GetComponent<Player>().health -= 20;
-            // if (collision.gameObject.GetComponent<Player>().health <= 0)
-            // {
-            //     collision.gameObject.SetActive(false);
-            //     GM.instance.alivePlayers -= 1;
-            //     if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
-            // }
+            if (player.id != 0) ClientSend.EnemyHit(player.id);
+            player.health -= 20;
+            if (player.health <= 0)
+            {
+                collision.gameObject.SetActive(false);
+                GM.instance.alivePlayers -= 1;
+                if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
+            }
         }
         Debug.Log($"Routine: <{deactivate}>");
         //if(deactivate != null) 

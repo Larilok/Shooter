@@ -48,6 +48,14 @@ public class ClientHandle : MonoBehaviour
         GM.players[playerId].aim.transform.localScale = localScale;
         GM.players[playerId].aim.transform.eulerAngles = new Vector3(0, 0, angle);
     }
+    
+    public static void PlayerHealth(Packet packet)
+    {
+       int hitPlayerId = packet.ReadInt();
+       int hitPlayerHealth = packet.ReadInt();
+       GM.players[hitPlayerId].health = hitPlayerHealth;
+    }
+
     public static void BulletSpawn(Packet packet)
     {
         Vector3 bulletPosition = packet.ReadVector3();
