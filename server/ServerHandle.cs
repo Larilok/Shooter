@@ -42,5 +42,13 @@ namespace server
             Server.clients[fromClient].SendHitIntoGame(playerId);
 
         }
+
+        internal static void BulletSpawn(int fromClient, Packet packet)
+        {
+            int playerId = packet.ReadInt();
+            Vector3 pos = packet.ReadVector3();
+            Vector2 rot = packet.ReadVector2();
+            Server.clients[fromClient].SendBulletIntoGame(pos, rot);
+        }
     }
 }

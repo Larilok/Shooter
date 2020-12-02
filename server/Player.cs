@@ -12,9 +12,9 @@ namespace server
         public int health = 100;
 
         public int damage = 20;
-    public List<(Vector3, Vector2)> bulletList;
+        //public List<(Vector3, Vector2)> bulletList;
 
-    public float damageMultiplier = 1;
+        public float damageMultiplier = 1;
         public float moveSpeedMultiplier = 1;
         public float bulletSpeedMultiplier = 1;
 
@@ -32,7 +32,7 @@ namespace server
         {
             this.id = id;
             this.username = username;
-            this.bulletList = new List<(Vector3, Vector2)>();
+            //this.bulletList = new List<(Vector3, Vector2)>();
             position = spawnPosition;
             rotation = Quaternion.Identity;
 
@@ -102,7 +102,7 @@ namespace server
 
         public int CalculateDamage()
         {
-          return (int)(this.damage * this.damageMultiplier);
+            return (int)(this.damage * this.damageMultiplier);
         }
     }
 

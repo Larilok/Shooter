@@ -48,12 +48,14 @@ public class ClientHandle : MonoBehaviour
         GM.players[playerId].aim.transform.localScale = localScale;
         GM.players[playerId].aim.transform.eulerAngles = new Vector3(0, 0, angle);
     }
-    public static void BulletSpawn(Vector3 position, Vector2 velocity)
+    public static void BulletSpawn(Packet packet)
     {
-
-        packet.Write(position);
-        packet.Write(velocity);
-        SendUDPData(packet);
+        Vector3 bulletPosition = packet.ReadVector3();
+        Vector3 bulletVelocity = packet.ReadVector2();
+        GameObject bullet = ObjectPool.SharedInstance.GetObject();
+        bullet.transform.position = bulletPosition;
+        bullet.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
+        bullet.SetActive(true);
     }
 
     public static void PlayerRotation(Packet packet)
