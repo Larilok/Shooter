@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Awake");
         playerBody = player.GetComponent<Rigidbody2D>();
     }
 
@@ -29,8 +28,8 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //handleMovement();
-        handleMovement2();
+        handleMovement();
+        // handleMovement2();
     }
 
     private void handleShooting()
@@ -61,7 +60,20 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
-        playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        bool[] input = new bool[4];
+        if (vertical == 1) input[0] = true;
+        if (vertical == -1) input[1] = true;
+        if (horizontal == -1) input[2] = true;
+        if (horizontal == 1) input[3] = true;
+        // foreach(bool i in input) {
+        //     Debug.Log($"I: {i}");
+        // }
+        // Debug.Log($"Horiz: {horizontal}, Vert: {vertical}");
+        ClientSend.PlayerMovement(input);
+        // Debug.Log($"Velocity prev {playerBody.velocity} ");
+        // playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+
+        // Debug.Log($"Velocity after {playerBody.velocity} ");
     }
     private void handleMovement2()
     {

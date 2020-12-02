@@ -31,6 +31,7 @@ public class ClientHandle : MonoBehaviour
     {
         int id = packet.ReadInt();
         Vector3 position = packet.ReadVector3();
+        Debug.Log($"Position: {position}");
 
         GM.players[id].transform.position = position;
     }

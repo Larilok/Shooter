@@ -13,7 +13,7 @@ namespace server
     public Vector3 position;
     public Quaternion rotation;
 
-    private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
+    private float moveSpeed = 20f / Constants.TICKS_PER_SEC;
     private bool[] inputs;
 
     public Player(int id, string username, Vector3 spawnPosition)
@@ -31,19 +31,19 @@ namespace server
       Vector2 inputDirection = Vector2.Zero;
       if (inputs[0])
       {
-          inputDirection.Y += 1;
+        inputDirection.Y += 1;
       }
       if (inputs[1])
       {
-          inputDirection.Y -= 1;
+        inputDirection.Y -= 1;
       }
       if (inputs[2])
       {
-          inputDirection.X += 1;
+        inputDirection.X -= 1;
       }
       if (inputs[3])
       {
-          inputDirection.X -= 1;
+        inputDirection.X += 1;
       }
 
       Move(inputDirection);
@@ -51,11 +51,18 @@ namespace server
 
     private void Move(Vector2 inputDirection)
     {
-      Vector3 forward = Vector3.Transform(new Vector3(0, 0, 1), rotation);
-      Vector3 right = Vector3.Normalize(Vector3.Cross(forward, new Vector3(0, 1, 0)));
+      // Vector3 forward = Vector3.Transform(new Vector3(0, 1, 0), rotation);
+      // Vector3 right = Vector3.Normalize(Vector3.Cross(forward, new Vector3(0, 1, 0)));
+      Vector3 forward = new Vector3(0, 1, 0);
+      Vector3 right = new Vector3(1, 0, 0);
+
 
       Vector3 moveDirection = right * inputDirection.X + forward * inputDirection.Y;
       position += moveDirection * moveSpeed;
+      if(position.X < -45) position.X = -45;
+      if(position.X > 45) position.X = 45;
+      if(position.Y < -24) position.Y = -24;
+      if(position.Y > 24) position.Y = 24;
 
       ServerSend.PlayerPosition(this);
     }

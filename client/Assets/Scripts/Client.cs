@@ -25,7 +25,6 @@ public class Client : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Client Awake");
         if (instance == null)
         {
             instance = this;
@@ -71,9 +70,6 @@ public class Client : MonoBehaviour
                 ReceiveBufferSize = dataBufferSize,
                 SendBufferSize = dataBufferSize
             };
-            Debug.Log(Client.instance);
-
-            Debug.Log("abc" + socket);
 
             receiveBuffer = new byte[dataBufferSize];
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
@@ -221,9 +217,6 @@ public class Client : MonoBehaviour
                 packet.InsertInt(instance.clientId);
                 if (socket != null)
                 {
-                    Debug.Log(instance.clientId);
-                    Debug.Log(packet.Length());
-
                     socket.BeginSend(packet.ToArray(), packet.Length(), null, null);
                 }
             }

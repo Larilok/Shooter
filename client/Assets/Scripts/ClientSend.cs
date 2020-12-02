@@ -13,7 +13,7 @@ public class ClientSend : MonoBehaviour
   }
   private static void SendUDPData(Packet packet)
   {
-    Debug.Log("UDP Send");
+    // Debug.Log("UDP Send");
     packet.WriteLength();
     Client.instance.udp.SendData(packet);
   }
@@ -32,7 +32,7 @@ public class ClientSend : MonoBehaviour
   
   public static void PlayerMovement(bool[] inputs)
   {
-    Debug.Log("Pl move");
+    // Debug.Log("Pl move");
     using (Packet packet = new Packet((int)ClientPackets.playerMovement))
     {
       packet.Write(inputs.Length);
