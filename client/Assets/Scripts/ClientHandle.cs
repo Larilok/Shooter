@@ -66,10 +66,13 @@ public class ClientHandle : MonoBehaviour
     {
         Vector3 bulletPosition = packet.ReadVector3();
         Vector3 bulletVelocity = packet.ReadVector2();
+        Debug.Log($"CLI RECEIVE Bullet Pos: {bulletPosition.x} {bulletPosition.y} {bulletPosition.z}, vel: {bulletVelocity.x} {bulletVelocity.y}");
+        //Debug.Log("Spawning Bullet");
+        //Debug.Log("Spawning Bullet");
         GameObject bullet = ObjectPool.SharedInstance.GetObject();
         bullet.transform.position = bulletPosition;
-        bullet.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
         bullet.SetActive(true);
+        bullet.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
         bullet.GetComponent<Bullet>().Deactivate(10);
     }
 
