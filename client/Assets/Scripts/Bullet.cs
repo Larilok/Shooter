@@ -19,14 +19,14 @@ public class Bullet : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
         if(player != null)
         {
-            ClientSend.EnemyHit(player.id);
-            // collision.gameObject.GetComponent<Player>().health -= 20;
-            // if (collision.gameObject.GetComponent<Player>().health <= 0)
-            // {
-            //     collision.gameObject.SetActive(false);
-            //     GM.instance.alivePlayers -= 1;
-            //     if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
-            // }
+            if (player.id != 0) ClientSend.EnemyHit(player.id);
+            player.health -= 20;
+            if (player.health <= 0)
+            {
+                collision.gameObject.SetActive(false);
+                GM.instance.alivePlayers -= 1;
+                if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
+            }
         }
         StopCoroutine("DeactivateRoutine");
         gameObject.SetActive(false);
