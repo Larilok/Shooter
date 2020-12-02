@@ -63,4 +63,14 @@ public class ClientSend : MonoBehaviour
         }
 >>>>>>> 7e71e107ae7fed7d9eb819e1bd86baba63b5924c
     }
+
+    public static void PlayerHit(int clientId)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.playerHit))
+        {
+            packet.Write(clientId);
+
+            SendTCPData(packet);
+        }
+    }
 }

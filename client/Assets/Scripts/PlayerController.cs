@@ -70,12 +70,6 @@ public class PlayerController : MonoBehaviour
 
         (bool, float) aim = getAim();
         ClientSend.PlayerMovement(input, aim.Item1, aim.Item2);
-<<<<<<< HEAD
-        
-        // playerBody.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
-        // Debug.Log($"Velocity after {playerBody.velocity} ");
-=======
->>>>>>> 7e71e107ae7fed7d9eb819e1bd86baba63b5924c
     }
 
     private (bool, float) getAim()
