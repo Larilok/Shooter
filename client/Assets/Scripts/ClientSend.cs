@@ -48,9 +48,15 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void Bullet(Vector3 position, Vector2 velocity)
+    public static void BulletSpawn(Vector3 position, Vector2 velocity)
     {
-
+        using (Packet packet = new Packet((int)ClientPackets.bulletSpawn))
+        {
+            //packet.Write(position.magnitude + velocity.magnitude);
+            packet.Write(position);
+            packet.Write(velocity);
+            SendUDPData(packet);
+        }
     }
 
     public static void PlayerHit(int clientId)

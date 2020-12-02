@@ -18,7 +18,8 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     playerMovement,
-    playerHit
+    playerHit,
+    bulletSpawn
 }
 
 public class Packet : IDisposable

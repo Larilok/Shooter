@@ -9,7 +9,7 @@ public class ClientHandle : MonoBehaviour
     {
         string msg = packet.ReadString();
         int clientId = packet.ReadInt();
-        
+
         Debug.Log($"Message from server: {msg}");
         Client.instance.clientId = clientId;
         ClientSend.WelcomeReceived();
@@ -29,15 +29,15 @@ public class ClientHandle : MonoBehaviour
 
     public static void PlayerPosition(Packet packet)
     {
-        int id = packet.ReadInt();
+        int playerId = packet.ReadInt();
         Vector3 position = packet.ReadVector3();
         Debug.Log($"Position: {position}");
 
-        GM.players[id].transform.position = position;
-                bool invert = packet.ReadBool();
+        GM.players[playerId].transform.position = position;
+        bool invert = packet.ReadBool();
         float angle = packet.ReadFloat();
         Vector3 localScale = Vector3.one * 2;
-        if(invert)
+        if (invert)
         {
             localScale.y = -2f;
         }
@@ -45,8 +45,15 @@ public class ClientHandle : MonoBehaviour
         {
             localScale.y = +2f;
         }
-        GM.players[id].aim.transform.localScale = localScale;
-        GM.players[id].aim.transform.eulerAngles = new Vector3(0, 0, angle);
+        GM.players[playerId].aim.transform.localScale = localScale;
+        GM.players[playerId].aim.transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+    public static void BulletSpawn(Vector3 position, Vector2 velocity)
+    {
+
+        packet.Write(position);
+        packet.Write(velocity);
+        SendUDPData(packet);
     }
 
     public static void PlayerRotation(Packet packet)
