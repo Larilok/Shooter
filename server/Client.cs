@@ -81,7 +81,7 @@ namespace server
           
           if (byteLength <= 0)
           {
-            // Server.clients[id].Disconnect();
+            Server.clients[id].Disconnect();
             return;
           }
 
@@ -198,6 +198,7 @@ namespace server
     {
       player = new Player(id, playerName, coordPos[id-1]);
 
+      // spawn other players on a client
       foreach (Client client in Server.clients.Values)
       {
         if (client.player != null)
@@ -208,7 +209,8 @@ namespace server
           }
         }
       }
-
+      
+      // spawn a player on other clients
       foreach (Client client in Server.clients.Values)
       {
         if (client.player != null)

@@ -93,18 +93,8 @@ namespace server
         SendUDPDataToAll(packet);
       }
     }
-
-    public static void PlayerRotation(Player player)
-    {
-      using (Packet packet = new Packet((int)ServerPackets.playerRotation))
-      {
-        packet.Write(player.id);
-        packet.Write(player.rotation);
-
-        SendUDPDataToAll(player.id, packet);
-      }
-    }
     #endregion
+
   }
 
 }
