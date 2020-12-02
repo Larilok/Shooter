@@ -11,7 +11,7 @@ public class GM : MonoBehaviour
     
     public GameObject playerPrefab;
     public GameObject myPlayerPrefab;
-    public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, Player> players = new Dictionary<int, Player>();
     //public List<GameObject> players;
 
     void Start()
@@ -75,9 +75,9 @@ public class GM : MonoBehaviour
             player = Instantiate(playerPrefab, position, rotation);
         }
 
-        player.GetComponent<PlayerManager>().id = id;
-        player.GetComponent<PlayerManager>().username = username;
-        players.Add(id, player.GetComponent<PlayerManager>());
+        player.GetComponent<Player>().id = id;
+        player.GetComponent<Player>().username = username;
+        players.Add(id, player.GetComponent<Player>());
     }
 
 }

@@ -95,12 +95,12 @@ namespace server
             }
         }
         
-        public static void PlayerHealth(int toClient, Player player)
+        public static void PlayerHealth(int toClient, Player hitPlayer)
         {
             using (Packet packet = new Packet((int)ServerPackets.playerPosition))
             {
-                packet.Write(player.id);
-                packet.Write(player.health);
+                packet.Write(hitPlayer.id);
+                packet.Write(hitPlayer.health);
                 SendTCPData(toClient, packet);
             }
         }

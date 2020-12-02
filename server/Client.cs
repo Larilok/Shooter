@@ -222,13 +222,14 @@ namespace server
     
     public void SendHitIntoGame(int hitPlayerId)
     {
+      Player hitPlayer = Server.clients[hitPlayerId].player;
       foreach (Client client in Server.clients.Values)
       {
         if (client.player != null)
         {
           if (client.id != id)
           {
-            ServerSend.PlayerHealth(id, client.player);
+            ServerSend.PlayerHealth(client.id, hitPlayer);
           }
         }
       }

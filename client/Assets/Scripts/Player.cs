@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public const int fullHealth = 100;
+    public int id;
+    public string username;
+    public GameObject aim;
     public int health = 100;
     public string playerName;
 

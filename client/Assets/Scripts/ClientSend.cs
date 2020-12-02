@@ -59,9 +59,9 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void PlayerHit(int clientId)
+    public static void EnemyHit(int clientId)
     {
-        using (Packet packet = new Packet((int)ClientPackets.playerHit))
+        using (Packet packet = new Packet((int)ClientPackets.enemyHit))
         {
             packet.Write(clientId);
 
