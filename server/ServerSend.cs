@@ -98,7 +98,7 @@ namespace server
         
         public static void PlayerHealth(int toClient, Player hitPlayer)
         {
-            using (Packet packet = new Packet((int)ServerPackets.playerPosition))
+            using (Packet packet = new Packet((int)ServerPackets.playerHealth))
             {
                 packet.Write(hitPlayer.id);
                 packet.Write(hitPlayer.health);
@@ -108,7 +108,7 @@ namespace server
 
         internal static void SpawnBullet(int toClient, Vector3 pos, Vector2 rot)
         {
-            using (Packet packet = new Packet((int)ServerPackets.playerPosition))
+            using (Packet packet = new Packet((int)ServerPackets.bulletSpawn))
             {
                 packet.Write(pos);
                 packet.Write(rot);

@@ -11,7 +11,8 @@ namespace server
     spawnPlayer,
     playerPosition,
     playerRotation,
-    playerHealth
+    playerHealth,
+    bulletSpawn
   }
 
   /// <summary>Sent from client to server.</summary>
