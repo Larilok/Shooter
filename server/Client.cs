@@ -223,8 +223,11 @@ namespace server
     private void Disconnect()
     {
       Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
-
-      player = null;
+      
+      ThreadManager.ExecuteOnMainThread(() =>
+      {
+        player = null;
+      });
 
       tcp.Disconnect();
       udp.Disconnect();

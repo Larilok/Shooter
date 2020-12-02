@@ -10,14 +10,16 @@ namespace server
     welcome = 1,
     spawnPlayer,
     playerPosition,
-    playerRotation
+    playerRotation,
+    enemyHit
   }
 
   /// <summary>Sent from client to server.</summary>
   public enum ClientPackets
   {
     welcomeReceived = 1,
-    playerMovement
+    playerMovement,
+    playerHit
   }
 
   public class Packet : IDisposable

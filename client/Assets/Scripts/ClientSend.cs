@@ -32,7 +32,6 @@ public class ClientSend : MonoBehaviour
   
   public static void PlayerMovement(bool[] inputs)
   {
-    // Debug.Log("Pl move");
     using (Packet packet = new Packet((int)ClientPackets.playerMovement))
     {
       packet.Write(inputs.Length);
@@ -43,6 +42,15 @@ public class ClientSend : MonoBehaviour
       packet.Write(GM.players[Client.instance.clientId].transform.rotation);
 
       SendUDPData(packet);
+    }
+  }
+  
+  public static void PlayerHit(int clientId) {
+    using (Packet packet = new Packet((int)ClientPackets.playerHit))
+    {
+        packet.Write(clientId);
+
+        SendTCPData(packet);
     }
   }
 }

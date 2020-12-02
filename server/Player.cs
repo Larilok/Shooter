@@ -9,6 +9,7 @@ namespace server
   {
     public int id;
     public string username;
+    public int health = 100;
 
     public Vector3 position;
     public Quaternion rotation;
@@ -71,6 +72,10 @@ namespace server
     {
       this.inputs = inputs;
       this.rotation = rotation;
+    }
+    
+    public void SetHealth(int health) {
+      this.health = health;
     }
   }
 }
