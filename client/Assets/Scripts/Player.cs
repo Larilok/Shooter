@@ -52,4 +52,24 @@ public class Player : MonoBehaviour
         GM.instance.alivePlayers -= 1;
         if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //Debug.Log($"!!!!!!!!!!!!!!!!!!!!!!!Player collided. Name: {collision.name}. GameObj Name: {collision.gameObject.name}!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        //Player player = collision.gameObject.GetComponent<Player>();
+        if (collision.name == "HealthBoost")
+        {
+            Debug.Log("Health");
+        } else if (collision.name == "PlayerSpeedBoost")
+        {
+            Debug.Log("Speed");
+        }
+        else if(collision.name == "BulletSpeedBoost")
+        {
+            Debug.Log("B Speed");
+        }
+        else if(collision.name == "BulletDamageBoost")
+        {
+            Debug.Log("Damage");
+        }
+    }
 }
