@@ -82,6 +82,7 @@ public class GM : MonoBehaviour
     
     public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
     {
+        Debug.Log("Adding a player");
         GameObject player;
         if (id == Client.instance.clientId)
         {

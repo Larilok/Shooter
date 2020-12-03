@@ -19,6 +19,7 @@ public class ClientHandle : MonoBehaviour
 
     public static void SpawnPlayer(Packet packet)
     {
+        Debug.Log("Spawn player packet");
         int id = packet.ReadInt();
         string username = packet.ReadString();
         Vector3 position = packet.ReadVector3();
@@ -30,9 +31,9 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerPosition(Packet packet)
     {
         int playerId = packet.ReadInt();
+        if(!GM.players.ContainsKey(playerId)) return;
         Vector3 position = packet.ReadVector3();
-        //Debug.Log($"Position: {position}");
-
+        // Debug.Log($"playerId: {playerId}");
         GM.players[playerId].transform.position = position;
         bool invert = packet.ReadBool();
         float angle = packet.ReadFloat();

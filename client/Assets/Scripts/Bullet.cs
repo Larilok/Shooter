@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"Bullet hit");
+        // Debug.Log($"Bullet hit");
         Player player = collision.gameObject.GetComponent<Player>();
         if(player != null)
         {

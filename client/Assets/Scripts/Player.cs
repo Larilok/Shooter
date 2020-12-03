@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
         if (id == Client.instance.clientId)
         {
             Client.instance.Disconnect();
+            GM.players.Clear();
+
             SceneManager.LoadScene("MainMenu");
             return;
         }
