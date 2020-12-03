@@ -33,8 +33,8 @@ public class ClientHandle : MonoBehaviour
     {
         int playerId = packet.ReadInt();
         if(!GM.players.ContainsKey(playerId)) return;
+
         Vector3 position = packet.ReadVector3();
-        // Debug.Log($"playerId: {playerId}");
         GM.players[playerId].transform.position = position;
         bool invert = packet.ReadBool();
         float angle = packet.ReadFloat();
@@ -83,6 +83,8 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerDisconnected(Packet packet)
     {
         int playerId = packet.ReadInt();
+        if(!GM.players.ContainsKey(playerId)) return;
+
         Destroy(GM.players[playerId].gameObject);
         GM.players.Remove(playerId);
     }

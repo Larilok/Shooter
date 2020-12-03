@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     public delegate void GameOver();
     public static event GameOver gameOverEvent;
-
     public const int fullHealth = 100;
     public int id;
     public string username;
@@ -32,6 +31,7 @@ public class Player : MonoBehaviour
     public void SetHealth(int health)
     {
         this.health = health;
+        Debug.Log($"Set health. Health: {health}");
         if (health <= 0)
         {
             Die();
