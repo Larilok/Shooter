@@ -103,6 +103,7 @@ namespace server
         { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
         { (int)ClientPackets.enemyHit, ServerHandle.EnemyHit },
         { (int)ClientPackets.bulletSpawn, ServerHandle.BulletSpawn },
+        { (int)ClientPackets.boostHandle, ServerHandle.BoostHandle}
       };
       Console.WriteLine("Initialized packets.");
     }

@@ -69,4 +69,16 @@ public class ClientSend : MonoBehaviour
             SendTCPData(packet);
         }
     }
+    public static void BoostHandle(int boostId, Vector3 boostPos)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.boostHandle))
+        {
+            //packet.Write(position.magnitude + velocity.magnitude);
+            //Debug.Log($"CLI SEND Bullet Pos: {position.x} {position.y} {position.z}, vel: {velocity.x} {velocity.y}");
+            packet.Write(false);//Removing Boost
+            packet.Write(boostId);
+            packet.Write(boostPos);
+            SendTCPData(packet);
+        }
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
@@ -85,5 +86,13 @@ public class ClientHandle : MonoBehaviour
         Destroy(GM.players[playerId].gameObject);
         GM.players.Remove(playerId);
     }
-    
+
+    public static void BoostHandler(Packet packet)
+    {
+        bool intent = packet.ReadBool();
+        int boostId = packet.ReadInt();//type of boost
+        Vector3 boostPos = packet.ReadVector3();//boost Position
+        if (intent) GM.AddBoost(boostId, boostPos);//Adding boost
+        else GM.RemoveBoost(boostId, boostPos);//Removing Boost
+    }
 }

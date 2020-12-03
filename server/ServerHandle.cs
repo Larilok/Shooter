@@ -51,5 +51,13 @@ namespace server
             Console.WriteLine($"\n\nSERVER RECEIVE: Bullet: Pos: {pos.X} {pos.Y} {pos.Z}, Vel: {vel.X} {vel.Y}\n");
             Server.clients[fromClient].SendBulletIntoGame(pos, vel);
         }
+
+        internal static void BoostHandle(int fromClient, Packet packet)
+        {
+            bool intent = packet.ReadBool();//Add/Remove boost - should always be false(Remove) here
+            int boostId = packet.ReadInt();
+            Vector3 boostPos = packet.ReadVector3();
+            Server.clients[fromClient].RemoveBoostFromGame(boostId, boostPos);
+        }
     }
 }

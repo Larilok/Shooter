@@ -118,7 +118,17 @@ namespace server
                 SendUDPData(toClient, packet);
             }
         }
-        
+        internal static void HandleBoost(int toClient, bool intent, int boostId, Vector3 boostPos)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.boostHandle))
+            {
+                packet.Write(intent);
+                packet.Write(boostId);
+                packet.Write(boostPos);
+                SendUDPData(toClient, packet);
+            }
+        }
+
         public static void PlayerDisconnected(int playerId)
         {
             Console.WriteLine($"Player {playerId} disconnected");

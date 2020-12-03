@@ -13,6 +13,7 @@ public enum ServerPackets
     playerRotation,
     playerHealth,
     bulletSpawn,
+    boostHandle,
     playerDisconnected
 }
 
@@ -22,7 +23,8 @@ public enum ClientPackets
     welcomeReceived = 1,
     playerMovement,
     enemyHit,
-    bulletSpawn
+    bulletSpawn,
+    boostHandle
 }
 
 public class Packet : IDisposable

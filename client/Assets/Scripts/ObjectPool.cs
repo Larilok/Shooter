@@ -24,7 +24,19 @@ public class ObjectPool : MonoBehaviour
             pool.Add(obj);
         }
     }
-
+    public List<GameObject> GetActiveObjectsInPositionList(Vector3 wantedPos)
+    {
+        List<GameObject> newPool = pool.FindAll(gO =>
+        {
+            if (gO.activeInHierarchy)
+            {
+                if (gO.transform.position == wantedPos) return true;
+                else return false;
+            }
+            else return false;
+        });
+        return newPool;
+    }
     public GameObject GetObject()
     {
         for (int i = 0; i < pool.Count; i++)

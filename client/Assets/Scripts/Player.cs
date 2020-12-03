@@ -61,17 +61,21 @@ public class Player : MonoBehaviour
         if (collision.name == "HealthBoost")
         {
             Debug.Log("Health");
+            ClientSend.BoostHandle(0, collision.gameObject.transform.position);
         } else if (collision.name == "PlayerSpeedBoost")
         {
             Debug.Log("Speed");
+            ClientSend.BoostHandle(1, collision.gameObject.transform.position);
         }
         else if(collision.name == "BulletSpeedBoost")
         {
             Debug.Log("B Speed");
+            ClientSend.BoostHandle(2, collision.gameObject.transform.position);
         }
         else if(collision.name == "BulletDamageBoost")
         {
             Debug.Log("Damage");
+            ClientSend.BoostHandle(3, collision.gameObject.transform.position);
         }
     }
 }

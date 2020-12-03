@@ -1,4 +1,5 @@
-﻿ using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -98,4 +99,45 @@ public class GM : MonoBehaviour
         players.Add(id, player.GetComponent<Player>());
     }
 
+    internal static void AddBoost(int boostId, Vector3 boostPos)
+    {
+        GameObject boost;
+        if (boostId == 0)//HealthBoost
+        {
+            boost =  healthBoostPoolInstance.GetObject();
+        } else if(boostId == 1)//PlayerSpeedBoost
+        {
+            boost = playerSpeedBoostPoolInstance.GetObject();
+        } else if (boostId == 2)//BulletSpeedBoost
+        {
+            boost = bulletSpeedBoostPoolInstance.GetObject();
+        } else //if (boostId == 3)//BulletDamageBoost
+        {
+            boost = bulletDamageBoostPoolInstance.GetObject();
+        }
+        boost.transform.position = boostPos;
+        boost.SetActive(true);
+    }
+
+    internal static void RemoveBoost(int boostId, Vector3 boostPos)
+    {
+        List<GameObject> boosts;
+        if (boostId == 0)//HealthBoost
+        {
+            boosts = healthBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
+        }
+        else if (boostId == 1)//PlayerSpeedBoost
+        {
+            boosts = playerSpeedBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
+        }
+        else if (boostId == 2)//BulletSpeedBoost
+        {
+            boosts = bulletSpeedBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
+        }
+        else //if (boostId == 3)//BulletDamageBoost
+        {
+            boosts = bulletDamageBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
+        }
+        boosts.ForEach(b => b.SetActive(false));
+    }
 }
