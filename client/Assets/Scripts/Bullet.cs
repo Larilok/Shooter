@@ -21,7 +21,10 @@ public class Bullet : MonoBehaviour
         Player player = collision.gameObject.GetComponent<Player>();
         if(player != null)
         {
-            if (player.id != 0) ClientSend.EnemyHit(player.id);
+            if (player.id != 0) {
+                ClientSend.EnemyHit(player.id);
+                return;
+            }
             player.SetHealth(player.health - 20);
             // if (player.health <= 0)
             // {

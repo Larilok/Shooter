@@ -65,7 +65,7 @@ public class Client : MonoBehaviour
 
         public void Connect()
         {
-            Debug.Log("TCP connect");
+            Debug.Log("UDP connect");
             socket = new TcpClient
             {
                 ReceiveBufferSize = dataBufferSize,
