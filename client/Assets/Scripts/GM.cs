@@ -53,11 +53,11 @@ public class GM : MonoBehaviour
     }
     private void OnEnable()
     {
-        Bullet.gameOverEvent += GameOverEventhandler;
+        Player.gameOverEvent += GameOverEventhandler;
     }
     private void OnDisable()
     {
-        Bullet.gameOverEvent -= GameOverEventhandler;
+        Player.gameOverEvent -= GameOverEventhandler;
     }
     private void GameOverEventhandler()
     {

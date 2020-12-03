@@ -53,13 +53,7 @@ public class ClientHandle : MonoBehaviour
     {
         int hitPlayerId = packet.ReadInt();
         int hitPlayerHealth = packet.ReadInt();
-        GM.players[hitPlayerId].health = hitPlayerHealth;
-        if (GM.players[hitPlayerId].health <= 0)
-        {
-            //GM.players[hitPlayerId].gameObject.SetActive(false);
-            Destroy(GM.players[hitPlayerId].gameObject);
-            GM.players.Remove(hitPlayerId);
-        }
+        GM.players[hitPlayerId].SetHealth(hitPlayerHealth);
     }
 
     public static void BulletSpawn(Packet packet)
@@ -89,6 +83,6 @@ public class ClientHandle : MonoBehaviour
         int playerId = packet.ReadInt();
         Destroy(GM.players[playerId].gameObject);
         GM.players.Remove(playerId);
-
     }
+    
 }
