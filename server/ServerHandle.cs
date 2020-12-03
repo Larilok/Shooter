@@ -55,6 +55,7 @@ namespace server
       int boostId = packet.ReadInt();
       Vector3 boostPos = packet.ReadVector3();
       Server.clients[fromClient].RemoveBoostFromGame(boostId, boostPos);
+      Server.spawners[boostId].SpawnItem();
     }
 
     public static void RoundStart(int fromClient, Packet packet)

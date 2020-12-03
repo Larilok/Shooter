@@ -24,8 +24,6 @@ namespace server
     public float gunRotation;
 
     private float moveSpeed = 20f / Constants.TICKS_PER_SEC;
-    private int verticalBorder = 24;
-    private int horizontalBorder = 45;
     private bool[] inputs;
 
     public Player(int id, string username, Vector3 spawnPosition)
@@ -71,10 +69,10 @@ namespace server
 
       Vector3 moveDirection = right * inputDirection.X + forward * inputDirection.Y;
       position += moveDirection * moveSpeed;
-      if (position.X < -horizontalBorder) position.X = -horizontalBorder;
-      if (position.X > horizontalBorder) position.X = horizontalBorder;
-      if (position.Y < -verticalBorder) position.Y = -verticalBorder;
-      if (position.Y > verticalBorder) position.Y = verticalBorder;
+      if (position.X < -Constants.HORIZONTAL_BORDER) position.X = -Constants.HORIZONTAL_BORDER;
+      if (position.X > Constants.HORIZONTAL_BORDER) position.X = Constants.HORIZONTAL_BORDER;
+      if (position.Y < -Constants.VERTICAL_BORDER) position.Y = -Constants.VERTICAL_BORDER;
+      if (position.Y > Constants.VERTICAL_BORDER) position.Y = Constants.VERTICAL_BORDER;
 
 
       //Rotate
