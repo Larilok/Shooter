@@ -65,6 +65,7 @@ public class Client : MonoBehaviour
 
         public void Connect()
         {
+            Debug.Log("TCP connect");
             socket = new TcpClient
             {
                 ReceiveBufferSize = dataBufferSize,

@@ -73,6 +73,8 @@ namespace server
 
         public static void SpawnPlayer(int toClient, Player player)
         {
+            Console.WriteLine($"Spawn player {player.id} sent to {toClient}");
+            
             using (Packet packet = new Packet((int)ServerPackets.spawnPlayer))
             {
                 packet.Write(player.id);

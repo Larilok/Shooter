@@ -38,6 +38,6 @@ public class MainMenuGM : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene("Main");
-        Debug.Log("AfterLC");
+        // Debug.Log("AfterLC");
     }
 }
