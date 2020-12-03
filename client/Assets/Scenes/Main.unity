@@ -1667,6 +1667,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerDamageBoost
       objectReference: {fileID: 0}
+    - target: {fileID: 576962782659063011, guid: 5b2a90ba81fd4114a8630ac2c0fd3bf5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3075276402400606479, guid: 5b2a90ba81fd4114a8630ac2c0fd3bf5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1796,6 +1801,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBoost
       objectReference: {fileID: 0}
+    - target: {fileID: 8268943658400966685, guid: 5a8e34623a59ba34bb028eafedc9229d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a8e34623a59ba34bb028eafedc9229d, type: 3}
 --- !u!1001 &4667689126013654499
@@ -1870,6 +1880,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletSpeedBoost
       objectReference: {fileID: 0}
+    - target: {fileID: 7918243965813743854, guid: b733d9282a63afe43b0a3811ac29274f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b733d9282a63afe43b0a3811ac29274f, type: 3}
 --- !u!1001 &7126038297514599123
@@ -1943,6 +1958,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerSpeedBoost
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483001632709435342, guid: eac45d086a46edf41a2b80faace62d6a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac45d086a46edf41a2b80faace62d6a, type: 3}

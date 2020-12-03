@@ -120,15 +120,19 @@ public class GM : MonoBehaviour
         if (boostId == 0)//HealthBoost
         {
             boost =  healthBoostPoolInstance.GetObject();
+            boost.name = "HealthBoost";
         } else if(boostId == 1)//PlayerSpeedBoost
         {
             boost = playerSpeedBoostPoolInstance.GetObject();
+            boost.name = "PlayerSpeedBoost";
         } else if (boostId == 2)//BulletSpeedBoost
         {
             boost = bulletSpeedBoostPoolInstance.GetObject();
+            boost.name = "BulletSpeedBoost";
         } else //if (boostId == 3)//BulletDamageBoost
         {
             boost = bulletDamageBoostPoolInstance.GetObject();
+            boost.name = "BulletDamageBoost";
         }
         boost.transform.position = boostPos;
         boost.SetActive(true);
