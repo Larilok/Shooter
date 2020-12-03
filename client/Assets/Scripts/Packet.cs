@@ -24,7 +24,8 @@ public enum ClientPackets
     playerMovement,
     enemyHit,
     bulletSpawn,
-    boostHandle
+    boostHandle,
+    roundStart
 }
 
 public class Packet : IDisposable
