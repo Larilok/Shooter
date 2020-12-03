@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
             //{
             //    goodMuzzleTransform = muzzle.transform;
             //}
-            GameObject bullet = ObjectPool.SharedInstance.GetObject();
+            GameObject bullet = GM.bulletPoolInstance.GetObject();
             Vector3 shotPos = (muzzle.transform.position - player.transform.position).normalized;
             //Debug.Log("ShotPos:" + shotPos);
             bullet.transform.position = muzzle.transform.position;
@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public static IEnumerator DeactivateBullet(GameObject toDeactivate, int deactivateIn)
+    public  IEnumerator DeactivateBullet(GameObject toDeactivate, int deactivateIn)
     {
         yield return new WaitForSeconds(deactivateIn);
         toDeactivate.SetActive(false);

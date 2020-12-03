@@ -14,8 +14,25 @@ public class GM : MonoBehaviour
     public static Dictionary<int, Player> players = new Dictionary<int, Player>();
     //public List<GameObject> players;
 
+    //pools
+    public ObjectPool bulletPool;
+    public static ObjectPool bulletPoolInstance;
+    public ObjectPool healthBoostPool;
+    public static ObjectPool healthBoostPoolInstance;
+    public ObjectPool playerSpeedBoostPool;
+    public static ObjectPool playerSpeedBoostPoolInstance;
+    public ObjectPool bulletSpeedBoostPool;
+    public static ObjectPool bulletSpeedBoostPoolInstance;
+    public ObjectPool bulletDamageBoostPool;
+    public static ObjectPool bulletDamageBoostPoolInstance;
+
     void Start()
     {
+        bulletPoolInstance = bulletPool;
+        healthBoostPoolInstance = healthBoostPool;
+        playerSpeedBoostPoolInstance = playerSpeedBoostPool;
+        bulletSpeedBoostPoolInstance = bulletSpeedBoostPool;
+        bulletDamageBoostPoolInstance = bulletDamageBoostPool;
         if (instance == null)
         {
             instance = this;

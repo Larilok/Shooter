@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    public static ObjectPool SharedInstance;
+    //public static ObjectPool SharedInstance;
     public List<GameObject> pool;
     public GameObject pooledObject;
     public int pooledAmmount;
     
     void Awake()
     {
-        SharedInstance = this;
+        //SharedInstance = this;
     }
 
     private void Start()

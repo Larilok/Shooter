@@ -69,7 +69,7 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"CLI RECEIVE Bullet Pos: {bulletPosition.x} {bulletPosition.y} {bulletPosition.z}, vel: {bulletVelocity.x} {bulletVelocity.y}");
         //Debug.Log("Spawning Bullet");
         //Debug.Log("Spawning Bullet");
-        GameObject bullet = ObjectPool.SharedInstance.GetObject();
+        GameObject bullet = GM.bulletPoolInstance.GetObject();
         bullet.transform.position = bulletPosition;
         bullet.SetActive(true);
         bullet.GetComponent<Rigidbody2D>().velocity = bulletVelocity;
