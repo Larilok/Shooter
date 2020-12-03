@@ -100,6 +100,17 @@ namespace server
       this.health -= hitByPlayer.CalculateDamage();
     }
 
+    public void takeDamage(int damage){
+      if (health <= 0) {
+        return;
+      }
+      
+      health -= damage;
+      if(health <= 0)
+      {
+        health = 0;
+      }
+    }
     public int CalculateDamage()
     {
       return (int)(this.damage * this.damageMultiplier);

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public delegate void GameOver();
-    public static event GameOver gameOverEvent;
+    // public delegate void GameOver();
+    // public static event GameOver gameOverEvent;
     public IEnumerator deactivate;
     void Start()
     {
@@ -21,13 +21,13 @@ public class Bullet : MonoBehaviour
         if(player != null)
         {
             if (player.id != 0) ClientSend.EnemyHit(player.id);
-            player.health -= 20;
-            if (player.health <= 0)
-            {
-                collision.gameObject.SetActive(false);
-                GM.instance.alivePlayers -= 1;
-                if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
-            }
+            player.SetHealth(player.health - 20);
+            // if (player.health <= 0)
+            // {
+            //     collision.gameObject.SetActive(false);
+            //     GM.instance.alivePlayers -= 1;
+            //     if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
+            // }
         }
         Debug.Log($"Routine: <{deactivate}>");
         //if(deactivate != null) 

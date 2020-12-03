@@ -236,11 +236,6 @@ namespace server
     }
     public void SendHitIntoGame(int hitPlayerId)
     {
-      // if(Server.clients[hitPlayerId].player.health <= 0) 
-      // {
-      //   Server.clients[id].Disconnect();
-      //   return;
-      // }
       Player hitPlayer = Server.clients[hitPlayerId].player;
       foreach (Client client in Server.clients.Values)
       {
