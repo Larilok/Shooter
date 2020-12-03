@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        string n = collision.name;
+        if (n == "HealthBoost" || n == "PlayerSpeedBoost" || n == "BulletSpeedBoost" || n == "BulletDamageBoost") return;
         Debug.Log($"Bullet hit");
         Player player = collision.gameObject.GetComponent<Player>();
         if(player != null)
