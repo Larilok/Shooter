@@ -13,6 +13,7 @@ namespace server
     private static bool roundStarted = false;
 
     public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
+    public static Dictionary<int, BoostSpawner> spawners = new Dictionary<int, BoostSpawner>();
     public delegate void PacketHandler(int fromClient, Packet packet);
     public static Dictionary<int, PacketHandler> packetHandlers;
 
@@ -104,6 +105,7 @@ namespace server
       for (int i = 1; i <= MaxPlayers; i++)
       {
         clients.Add(i, new Client(i));
+        spawners.Add(i, new BoostSpawner(i));
       }
       packetHandlers = new Dictionary<int, PacketHandler>()
       {
@@ -130,7 +132,8 @@ namespace server
         Console.WriteLine($"Error sending data to {clientEndPoint} via UDP: {ex}");
       }
     }
-    public static int ClientsCount() {
+    public static int ClientsCount()
+    {
       int count = 0;
       for (int i = 1; i <= MaxPlayers; i++)
       {
@@ -144,10 +147,15 @@ namespace server
     public static void StartRound()
     {
       roundStarted = true;
+      foreach (BoostSpawner bs in spawners.Values)
+      {
+        bs.SpawnItem();
+      }
     }
     public static void StopRound()
     {
       roundStarted = false;
     }
+
   }
 }
