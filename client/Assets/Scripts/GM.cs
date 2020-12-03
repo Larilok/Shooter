@@ -9,7 +9,10 @@ public class GM : MonoBehaviour
     public int maxPlayers = 4;
     public int alivePlayers = 4;
     public static GM instance;
-    
+
+    public TMPro.TextMeshProUGUI roundStartText;
+    public bool handlingRoundStart = false;
+
     public GameObject playerPrefab;
     public GameObject myPlayerPrefab;
     public static Dictionary<int, Player> players = new Dictionary<int, Player>();
@@ -59,6 +62,18 @@ public class GM : MonoBehaviour
     private void OnDisable()
     {
         Player.gameOverEvent -= GameOverEventhandler;
+    }
+    public void HandleRoundStart(bool startHandling)
+    {
+        if(startHandling)
+        {
+            roundStartText.gameObject.SetActive(true);
+            handlingRoundStart = true;
+        } else
+        {
+            roundStartText.gameObject.SetActive(false);
+            handlingRoundStart = false;
+        }
     }
     private void GameOverEventhandler()
     {

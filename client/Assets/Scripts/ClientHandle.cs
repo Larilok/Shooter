@@ -10,7 +10,7 @@ public class ClientHandle : MonoBehaviour
     {
         string msg = packet.ReadString();
         int clientId = packet.ReadInt();
-
+        if (clientId == 1) GM.instance.HandleRoundStart(true);
         Debug.Log($"Message from server: {msg}");
         Client.instance.clientId = clientId;
         ClientSend.WelcomeReceived();
@@ -28,7 +28,6 @@ public class ClientHandle : MonoBehaviour
 
         GM.instance.SpawnPlayer(id, username, position, rotation);
     }
-
     public static void PlayerPosition(Packet packet)
     {
         int playerId = packet.ReadInt();

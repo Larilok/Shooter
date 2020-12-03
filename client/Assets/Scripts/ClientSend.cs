@@ -30,7 +30,14 @@ public class ClientSend : MonoBehaviour
             SendTCPData(packet);
         }
     }
-
+    internal static void RoundStart(int clientId)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.roundStart))
+        {
+            packet.Write(Client.instance.clientId);
+            SendTCPData(packet);
+        }
+    }
     public static void PlayerMovement(bool[] inputs, bool invert, float aimAngle)
     {
         using (Packet packet = new Packet((int)ClientPackets.playerMovement))
@@ -47,7 +54,6 @@ public class ClientSend : MonoBehaviour
             SendUDPData(packet);
         }
     }
-
     public static void BulletSpawn(Vector3 position, Vector2 velocity)
     {
         using (Packet packet = new Packet((int)ClientPackets.bulletSpawn))

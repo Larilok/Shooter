@@ -31,7 +31,17 @@ public class PlayerController : MonoBehaviour
         handleMovement();
         // handleMovement2();
     }
-
+    private void OnGUI()
+    {
+        if (Event.current.Equals(Event.KeyboardEvent(KeyCode.Space.ToString())))//pressed Space
+        {
+            if(GM.instance.handlingRoundStart)
+            {
+                ClientSend.RoundStart(Client.instance.clientId);
+                GM.instance.HandleRoundStart(false);
+            }
+        }
+    }
     private void handleShooting()
     {
         if (Input.GetMouseButtonDown(0))//shooting
@@ -121,9 +131,5 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //public  IEnumerator DeactivateBullet(GameObject toDeactivate, int deactivateIn)
-    //{
-    //    yield return new WaitForSeconds(deactivateIn);
-    //    toDeactivate.SetActive(false);
-    //}
+    
 }
