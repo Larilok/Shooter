@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log($"Bullet hit");
         Player player = collision.gameObject.GetComponent<Player>();
         if(player != null)
         {
@@ -29,10 +30,7 @@ public class Bullet : MonoBehaviour
             //     if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
             // }
         }
-        Debug.Log($"Routine: <{deactivate}>");
-        //if(deactivate != null) 
-            //StopCoroutine(deactivate);
-        StopAllCoroutines();
+        StopCoroutine(deactivate);
         gameObject.SetActive(false);
     }
     public void Deactivate(int deactivateIn)

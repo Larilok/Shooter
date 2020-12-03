@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
         {
             Client.instance.Disconnect();
             SceneManager.LoadScene("MainMenu");
+            return;
         }
         Debug.Log($"Player with id {id} is dead");
         Destroy(GM.players[id].gameObject);
