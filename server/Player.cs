@@ -97,10 +97,10 @@ namespace server
     public void SetHealth(int hitByClientId)
     {
       Player hitByPlayer = Server.clients[hitByClientId].player;
-      this.health -= hitByPlayer.CalculateDamage();
+      this.TakeDamage(hitByPlayer.CalculateDamage());
     }
 
-    public void takeDamage(int damage){
+    public void TakeDamage(int damage){
       if (health <= 0) {
         return;
       }

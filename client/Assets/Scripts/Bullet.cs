@@ -17,15 +17,19 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Debug.Log($"Bullet hit");
+        Debug.Log($"Bullet hit");
         Player player = collision.gameObject.GetComponent<Player>();
         if(player != null)
         {
-            if (player.id != 0) {
+            if (player.id != 0 && player.id != Client.instance.clientId) {
+                Debug.Log($"EnemyHit");
                 ClientSend.EnemyHit(player.id);
-                return;
             }
-            player.SetHealth(player.health - 20);
+            // else 
+            // {
+            //     Debug.Log($"Health set. Player id: {player.id}");
+            //     player.SetHealth(player.health - 20);
+            // }
             // if (player.health <= 0)
             // {
             //     collision.gameObject.SetActive(false);

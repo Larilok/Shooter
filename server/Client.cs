@@ -241,10 +241,7 @@ namespace server
       {
         if (client.player != null)
         {
-          if (client.id != id)
-          {
-            ServerSend.PlayerHealth(client.id, hitPlayer);
-          }
+          ServerSend.PlayerHealth(client.id, hitPlayer);
         }
       }
 

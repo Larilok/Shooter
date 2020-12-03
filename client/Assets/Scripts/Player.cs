@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     public void SetHealth(int health)
     {
         this.health = health;
+        Debug.Log($"Set health. Health: {health}");
         if (health <= 0)
         {
             Die();
