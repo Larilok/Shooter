@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Net;
 using System.Net.Sockets;
 namespace server
@@ -8,6 +9,8 @@ namespace server
   {
     public static int MaxPlayers { get; private set; }
     public static int Port { get; private set; }
+
+    private static bool roundStarted = false;
 
     public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
     public delegate void PacketHandler(int fromClient, Packet packet);
@@ -39,6 +42,11 @@ namespace server
       tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
       Console.WriteLine($"Incoming connection from {client.Client.RemoteEndPoint}...");
 
+      if (roundStarted)
+      {
+        Console.WriteLine($"{client.Client.RemoteEndPoint} failed to connect: Round started!");
+        return;
+      }
       for (int i = 1; i <= MaxPlayers; i++)
       {
         if (clients[i].tcp.socket == null)
@@ -103,7 +111,8 @@ namespace server
         { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
         { (int)ClientPackets.enemyHit, ServerHandle.EnemyHit },
         { (int)ClientPackets.bulletSpawn, ServerHandle.BulletSpawn },
-        { (int)ClientPackets.boostHandle, ServerHandle.BoostHandle}
+        { (int)ClientPackets.boostHandle, ServerHandle.BoostHandle },
+        { (int)ClientPackets.roundStart, ServerHandle.RoundStart },
       };
       Console.WriteLine("Initialized packets.");
     }
@@ -120,6 +129,25 @@ namespace server
       {
         Console.WriteLine($"Error sending data to {clientEndPoint} via UDP: {ex}");
       }
+    }
+    public static int ClientsCount() {
+      int count = 0;
+      for (int i = 1; i <= MaxPlayers; i++)
+      {
+        if (clients[i].tcp.socket != null)
+        {
+          count++;
+        }
+      }
+      return count;
+    }
+    public static void StartRound()
+    {
+      roundStarted = true;
+    }
+    public static void StopRound()
+    {
+      roundStarted = false;
     }
   }
 }

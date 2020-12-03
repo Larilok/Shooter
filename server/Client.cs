@@ -276,6 +276,7 @@ namespace server
             udp.Disconnect();
 
             ServerSend.PlayerDisconnected(id);
+            if(Server.ClientsCount() == 1) Server.StopRound();
         }
     }
 }
