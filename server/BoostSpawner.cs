@@ -13,7 +13,7 @@ namespace server
     public int boostId;
     
     public BoostSpawner(int boostId) {
-      this.boostId = boostId;
+      this.boostId = boostId-1;
     }
     
     public async void SpawnItem() {
