@@ -243,10 +243,6 @@ namespace server
                 if (client.player != null)
                 {
                     ServerSend.PlayerHealth(client.id, hitPlayer);
-                    //if (client.id != id)
-                    //{
-                        
-                    //}
                 }
             }
 
@@ -276,7 +272,8 @@ namespace server
             udp.Disconnect();
 
             ServerSend.PlayerDisconnected(id);
-            if (Server.ClientsCount() == 1) Server.StopRound();
+            int connectedClients = Server.ClientsCount();
+            if (connectedClients == 1 || connectedClients == 0) Server.StopRound();
         }
     }
 }

@@ -35,6 +35,10 @@ namespace server
 
         public static void EnemyHit(int fromClient, Packet packet)
         {
+            if(!Server.IsRoundStarted())
+            {
+                return;
+            }
             int playerId = packet.ReadInt();
             Server.clients[playerId].player.SetHealth(fromClient);
             Console.WriteLine($"{playerId} was hit by player {fromClient}.");
