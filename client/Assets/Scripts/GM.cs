@@ -9,7 +9,7 @@ public class GM : MonoBehaviour
     bool escPressed = false;
 
     public int maxPlayers = 4;
-    public int alivePlayers = 4;
+    public int alivePlayers = 0;
     public static GM instance;
 
     public TMPro.TextMeshProUGUI roundStartText;
@@ -65,14 +65,6 @@ public class GM : MonoBehaviour
     {
 
     }
-    private void OnEnable()
-    {
-        Player.gameOverEvent += GameOverEventhandler;
-    }
-    private void OnDisable()
-    {
-        Player.gameOverEvent -= GameOverEventhandler;
-    }
     public void HandleRoundStart(bool startHandling)
     {
         if (startHandling)
@@ -86,22 +78,6 @@ public class GM : MonoBehaviour
             handlingRoundStart = false;
         }
     }
-    private void GameOverEventhandler()
-    {
-        //GameObject winner = players[0];
-        //for (int i = 0; i < players.Count; i++)
-        //{
-        //    if (players[i].activeInHierarchy)
-        //    {
-        //        Debug.Log("Updating Winner");
-        //        winner = players[i];
-        //        break;
-        //    }
-        //}
-        //GameProperties.winnerName = winner.name;
-        //SetWinnerString(winner.name);
-        //SceneManager.LoadScene("MainMenu");
-    }
     public void SetWinnerString(string winnerName)
     {
         GameProperties.winnerString = "Round Winner:\n" + winnerName;
@@ -109,7 +85,6 @@ public class GM : MonoBehaviour
 
     public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
     {
-        Debug.Log("Adding a player");
         GameObject player;
         if (id == Client.instance.clientId)
         {
@@ -123,6 +98,8 @@ public class GM : MonoBehaviour
         player.GetComponent<Player>().id = id;
         player.GetComponent<Player>().username = username;
         players.Add(id, player.GetComponent<Player>());
+        alivePlayers++;
+        Debug.Log($"ADDING A PLAYER: NOW THERE ARE: {alivePlayers}");
     }
 
     internal static void AddBoost(int boostId, Vector3 boostPos)
@@ -172,6 +149,11 @@ public class GM : MonoBehaviour
             boosts = bulletDamageBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
         }
         boosts.ForEach(b => b.SetActive(false));
+    }
+    internal void EndGame(string winnerName)
+    {
+        SetWinnerString(winnerName);
+        GoToMainMenu();
     }
     internal void GoToMainMenu()
     {

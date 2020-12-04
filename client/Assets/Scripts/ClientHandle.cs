@@ -100,6 +100,6 @@ public class ClientHandle : MonoBehaviour
     internal static void killCountUpdate(Packet packet)
     {
         int killerId = packet.ReadInt();
-        GM.players[killerId].IncrementKillCount();
+        if (GM.players.ContainsKey(killerId)) GM.players[killerId].IncrementKillCount();
     }
 }

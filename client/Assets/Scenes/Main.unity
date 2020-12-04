@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPlayers: 4
-  alivePlayers: 4
+  alivePlayers: 0
   roundStartText: {fileID: 1110159848}
   handlingRoundStart: 0
   playerPrefab: {fileID: 1087430193795072035, guid: 673f2a4ad6ede104498dfe11b6c05943,

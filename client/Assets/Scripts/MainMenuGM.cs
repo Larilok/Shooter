@@ -24,8 +24,8 @@ public class MainMenuGM : MonoBehaviour
     }
     public void setMyName(string newName)
     {
-        Client.instance.myName = newName;
-        //GameProperties.myName = newName;
+        //Client.instance.myName = newName;
+        GameProperties.myName = newName;
     }
     public void setIp(string newIP)
     {

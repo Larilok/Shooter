@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public delegate void GameOver();
-    public static event GameOver gameOverEvent;
     public const int fullHealth = 100;
     public int id;
     public string username;
@@ -53,11 +51,11 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
             return;
         }
-        Debug.Log($"Player with id {id} is dead");
+        Debug.Log($"Player with id {id} is dead. Alive: {GM.instance.alivePlayers}");
         Destroy(GM.players[id].gameObject);
         GM.players.Remove(id);
         GM.instance.alivePlayers -= 1;
-        if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
+        if (GM.instance.alivePlayers <= 1) GM.instance.EndGame(GameProperties.myName);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

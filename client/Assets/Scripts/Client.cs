@@ -13,7 +13,7 @@ public class Client : MonoBehaviour
 
     public string ip = "127.0.0.1";
     public int port = 8888;
-    public string myName = "ME";
+    //public string myName;
 
     public int clientId = 0;
     public TCP tcp;
