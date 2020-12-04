@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GM : MonoBehaviour
 {
+    bool escPressed = false;
+
     public int maxPlayers = 4;
     public int alivePlayers = 4;
     public static GM instance;
@@ -172,5 +174,19 @@ public class GM : MonoBehaviour
     {
         Client.instance.Disconnect();
         SceneManager.LoadScene("MainMenu");
+    }
+    private void OnGUI()
+    {
+        if (Event.current.Equals(Event.KeyboardEvent(KeyCode.Escape.ToString())))//pressed Escape
+        {
+            if (escPressed)
+            {
+                GoToMainMenu();
+            }
+            else
+            {
+                escPressed = true;
+            }
+        }
     }
 }

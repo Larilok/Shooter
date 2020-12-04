@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
 
     float horizontal;
     float vertical;
-    bool escPressed = false;
 
     public float runSpeed = 20.0f;
     public float bulletSpeedMultiplier = 1;
@@ -44,17 +43,6 @@ public class PlayerController : MonoBehaviour
             {
                 ClientSend.RoundStart(Client.instance.clientId);
                 GM.instance.HandleRoundStart(false);
-            }
-        }
-        else if (Event.current.Equals(Event.KeyboardEvent(KeyCode.Escape.ToString())))//pressed Escape
-        {
-            if (escPressed)
-            {
-                GM.instance.GoToMainMenu();
-            }
-            else
-            {
-                escPressed = true;
             }
         }
     }
