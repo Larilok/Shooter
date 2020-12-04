@@ -14,7 +14,8 @@ namespace server
         playerHealth,
         bulletSpawn,
         boostHandle,
-        playerDisconnected
+        playerDisconnected,
+        killCountUpdate
     }
 
     /// <summary>Sent from client to server.</summary>

@@ -152,6 +152,10 @@ namespace server
             Player hitByPlayer = Server.clients[hitByClientId].player;
             this.TakeDamage(hitByPlayer.CalculateDamage());
         }
+        public bool IsDead() 
+        {
+            return health <= 0;
+        }
 
         public void TakeDamage(int damage)
         {
