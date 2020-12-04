@@ -159,4 +159,8 @@ public class GM : MonoBehaviour
         }
         boosts.ForEach(b => b.SetActive(false));
     }
+    internal void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

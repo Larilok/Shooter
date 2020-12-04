@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     float horizontal;
     float vertical;
+    bool escPressed = false;
 
     public float runSpeed = 20.0f;
 
@@ -35,10 +36,21 @@ public class PlayerController : MonoBehaviour
     {
         if (Event.current.Equals(Event.KeyboardEvent(KeyCode.Space.ToString())))//pressed Space
         {
-            if(GM.instance.handlingRoundStart)
+            if (GM.instance.handlingRoundStart)
             {
                 ClientSend.RoundStart(Client.instance.clientId);
                 GM.instance.HandleRoundStart(false);
+            }
+        }
+        else if (Event.current.Equals(Event.KeyboardEvent(KeyCode.Escape.ToString())))//pressed Escape
+        {
+            if (escPressed)
+            {
+                GM.instance.GoToMainMenu();
+            }
+            else
+            {
+                escPressed = true;
             }
         }
     }
@@ -118,11 +130,12 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 aimDir = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-        Vector3 localScale = Vector3.one*2;
-        if(angle > 90 || angle < -90)
+        Vector3 localScale = Vector3.one * 2;
+        if (angle > 90 || angle < -90)
         {
             localScale.y = -2f;
-        } else
+        }
+        else
         {
             localScale.y = +2f;
         }
@@ -131,5 +144,5 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    
+
 }
