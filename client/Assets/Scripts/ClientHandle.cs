@@ -96,4 +96,10 @@ public class ClientHandle : MonoBehaviour
         if (intent) GM.AddBoost(boostId, boostPos);//Adding boost
         else GM.RemoveBoost(boostId, boostPos);//Removing Boost
     }
+
+    internal static void killCountUpdate(Packet packet)
+    {
+        int killerId = packet.ReadInt();
+        GM.players[killerId].IncrementKillCount();
+    }
 }

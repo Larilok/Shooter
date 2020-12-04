@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,10 +15,14 @@ public class Player : MonoBehaviour
     public int health = 100;
     public string playerName;
 
+    public int killCount = 0;
+    public TMPro.TextMeshPro killCountContainer;
+
     public GameObject HealthBar;
     Vector3 localScale;
     void Start()
     {
+        killCountContainer.text = killCount.ToString();
         localScale = transform.localScale;
     }
 
@@ -81,5 +86,11 @@ public class Player : MonoBehaviour
             Debug.Log("Damage");
             ClientSend.BoostHandle(3, collision.gameObject.transform.position);
         }
+    }
+
+    internal void IncrementKillCount()
+    {
+        killCount += 1;
+        killCountContainer.text = killCount.ToString();
     }
 }
