@@ -171,6 +171,8 @@ public class GM : MonoBehaviour
     internal void GoToMainMenu()
     {
         Client.instance.Disconnect();
+        players.Clear();
+
         SceneManager.LoadScene("MainMenu");
     }
 }

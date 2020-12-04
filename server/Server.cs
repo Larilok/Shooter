@@ -146,6 +146,8 @@ namespace server
         }
         public static void StartRound()
         {
+            Console.WriteLine($"Round Started");
+            
             roundStarted = true;
             foreach (BoostSpawner bs in spawners.Values)
             {
@@ -154,6 +156,8 @@ namespace server
         }
         public static void StopRound()
         {
+            Console.WriteLine($"Round stop");
+            
             roundStarted = false;
         }
 
