@@ -75,11 +75,12 @@ public class GM : MonoBehaviour
     }
     public void HandleRoundStart(bool startHandling)
     {
-        if(startHandling)
+        if (startHandling)
         {
             roundStartText.gameObject.SetActive(true);
             handlingRoundStart = true;
-        } else
+        }
+        else
         {
             roundStartText.gameObject.SetActive(false);
             handlingRoundStart = false;
@@ -105,7 +106,7 @@ public class GM : MonoBehaviour
     {
         GameProperties.winnerString = "Round Winner:\n" + winnerName;
     }
-    
+
     public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
     {
         Debug.Log("Adding a player");
@@ -129,13 +130,15 @@ public class GM : MonoBehaviour
         GameObject boost;
         if (boostId == (int)BoostEnum.HealthBoost)//HealthBoost
         {
-            boost =  healthBoostPoolInstance.GetObject();
+            boost = healthBoostPoolInstance.GetObject();
             boost.name = "HealthBoost";
-        } else if(boostId == (int)BoostEnum.PlayerSpeedBoost)//PlayerSpeedBoost
+        }
+        else if (boostId == (int)BoostEnum.PlayerSpeedBoost)//PlayerSpeedBoost
         {
             boost = playerSpeedBoostPoolInstance.GetObject();
             boost.name = "PlayerSpeedBoost";
-        } else if (boostId == (int)BoostEnum.BulletSpeedBoost)//BulletSpeedBoost
+        }
+        else if (boostId == (int)BoostEnum.BulletSpeedBoost)//BulletSpeedBoost
         {
             boost = bulletSpeedBoostPoolInstance.GetObject();
             boost.name = "BulletSpeedBoost";
@@ -172,7 +175,10 @@ public class GM : MonoBehaviour
     }
     internal void GoToMainMenu()
     {
-        Client.instance.Disconnect();
+        if (Client.instance.tcp != null)
+        {
+            Client.instance.Disconnect();
+        }
         players.Clear();
 
         SceneManager.LoadScene("MainMenu");
