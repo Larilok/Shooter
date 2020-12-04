@@ -61,9 +61,6 @@ public class ClientHandle : MonoBehaviour
     {
         Vector3 bulletPosition = packet.ReadVector3();
         Vector3 bulletVelocity = packet.ReadVector2();
-        //Debug.Log($"CLI RECEIVE Bullet Pos: {bulletPosition.x} {bulletPosition.y} {bulletPosition.z}, vel: {bulletVelocity.x} {bulletVelocity.y}");
-        //Debug.Log("Spawning Bullet");
-        //Debug.Log("Spawning Bullet");
         GameObject bullet = GM.bulletPoolInstance.GetObject();
         bullet.transform.position = bulletPosition;
         bullet.SetActive(true);
@@ -74,9 +71,6 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerRotation(Packet packet)
     {
         int id = packet.ReadInt();
-        //Quaternion rotation = packet.ReadQuaternion();
-
-        //GM.players[id].transform.rotation = rotation;
     }
     
     public static void PlayerDisconnected(Packet packet)

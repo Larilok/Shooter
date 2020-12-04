@@ -27,17 +27,6 @@ public class Bullet : MonoBehaviour
                 Debug.Log($"EnemyHit");
                 ClientSend.EnemyHit(player.id);
             }
-            // else 
-            // {
-            //     Debug.Log($"Health set. Player id: {player.id}");
-            //     player.SetHealth(player.health - 20);
-            // }
-            // if (player.health <= 0)
-            // {
-            //     collision.gameObject.SetActive(false);
-            //     GM.instance.alivePlayers -= 1;
-            //     if (GM.instance.alivePlayers <= 1) gameOverEvent?.Invoke();
-            // }
         }
         StopCoroutine(deactivate);
         gameObject.SetActive(false);

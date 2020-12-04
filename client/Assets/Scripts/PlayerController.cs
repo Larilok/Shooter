@@ -28,12 +28,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         handleShooting();
-        //handleAiming();
     }
     private void FixedUpdate()
     {
         handleMovement();
-        // handleMovement2();
     }
     private void OnGUI()
     {
@@ -50,20 +48,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))//shooting
         {
-            //Debug.Log("Shooting");
-            //Transform goodMuzzleTransform;
-            //if(gun.GetComponent<SpriteRenderer>().flipY)
-            //{
-            //    goodMuzzleTransform = muzzle.transform;
-            //} else
-            //{
-            //    goodMuzzleTransform = muzzle.transform;
-            //}
             GameObject bullet = GM.bulletPoolInstance.GetObject();
             Vector3 shotPos = (muzzle.transform.position - player.transform.position).normalized;
-            //Debug.Log("ShotPos:" + shotPos);
             bullet.transform.position = muzzle.transform.position;
-            //bullet.transform.rotation = muzzle.transform.rotation;
             bullet.SetActive(true);
             Vector2 velocity = new Vector2(shotPos.x * 20, shotPos.y * 20)*bulletSpeedMultiplier;
             bullet.GetComponent<Rigidbody2D>().velocity = velocity;
@@ -97,31 +84,17 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 aimDir = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-        //Debug.Log("Angle: " + angle);
-        //Vector3 localScale = Vector3.one * 2;
         bool invert;
         if (angle > 90 || angle < -90)
         {
-            //localScale.y = -2f;
             invert = true;
         }
         else
         {
-            //localScale.y = +2f;
             invert = false;
         }
         return (invert, angle);
     }
-
-    // private void handleMovement2()
-    // {
-    //     Debug.Log("HANDLING MOVEMENT");
-    //     Vector3 input = Vector3.zero;
-    //     input.x = Input.GetAxisRaw("Horizontal");
-    //     input.y = Input.GetAxisRaw("Vertical");
-    //     //Debug.Log("X: " + input.x);
-    //     Vector3 direction = input.normalized;
-    // }
 
     private void handleAiming()
     {
@@ -141,6 +114,5 @@ public class PlayerController : MonoBehaviour
         aim.transform.eulerAngles = new Vector3(0, 0, angle);
 
     }
-
 
 }

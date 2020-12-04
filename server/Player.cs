@@ -13,7 +13,6 @@ namespace server
         public int health = 100;
 
         public int damage = 20;
-        //public List<(Vector3, Vector2)> bulletList;
 
         public float damageMultiplier = 1;
         public float moveSpeedMultiplier = 1;
