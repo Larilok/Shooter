@@ -107,6 +107,15 @@ namespace server
                 SendTCPData(toClient, packet);
             }
         }
+        public static void PlayerHealthToAll(Player hitPlayer)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.playerHealth))
+            {
+                packet.Write(hitPlayer.id);
+                packet.Write(hitPlayer.health);
+                SendTCPDataToAll(packet);
+            }
+        }
 
         internal static void SpawnBullet(int toClient, Vector3 pos, Vector2 vel)
         {

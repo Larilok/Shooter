@@ -228,7 +228,8 @@ namespace server
                 {
                     if (client.id != id)
                     {
-                        ServerSend.SpawnBullet(client.id, pos, vel);
+                        //Console.WriteLine($"Spawning bullet with VEL: x:{(vel * player.bulletSpeedMultiplier).X}, Y: {(vel * player.bulletSpeedMultiplier).Y}. OGVEL: X:{vel.X}, Y:{vel.Y}");
+                        ServerSend.SpawnBullet(client.id, pos, vel*player.bulletSpeedMultiplier);
                     }
                 }
             }
@@ -241,10 +242,11 @@ namespace server
             {
                 if (client.player != null)
                 {
-                    if (client.id != id)
-                    {
-                        ServerSend.PlayerHealth(client.id, hitPlayer);
-                    }
+                    ServerSend.PlayerHealth(client.id, hitPlayer);
+                    //if (client.id != id)
+                    //{
+                        
+                    //}
                 }
             }
 

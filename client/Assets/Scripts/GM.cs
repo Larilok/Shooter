@@ -13,6 +13,14 @@ public class GM : MonoBehaviour
     public TMPro.TextMeshProUGUI roundStartText;
     public bool handlingRoundStart = false;
 
+    enum BoostEnum
+    {
+        HealthBoost,
+        PlayerSpeedBoost,
+        BulletSpeedBoost,
+        BulletDamageBoost
+    }
+
     public GameObject playerPrefab;
     public GameObject myPlayerPrefab;
     public static Dictionary<int, Player> players = new Dictionary<int, Player>();
@@ -117,19 +125,20 @@ public class GM : MonoBehaviour
     internal static void AddBoost(int boostId, Vector3 boostPos)
     {
         GameObject boost;
-        if (boostId == 0)//HealthBoost
+        if (boostId == (int)BoostEnum.HealthBoost)//HealthBoost
         {
             boost =  healthBoostPoolInstance.GetObject();
             boost.name = "HealthBoost";
-        } else if(boostId == 1)//PlayerSpeedBoost
+        } else if(boostId == (int)BoostEnum.PlayerSpeedBoost)//PlayerSpeedBoost
         {
             boost = playerSpeedBoostPoolInstance.GetObject();
             boost.name = "PlayerSpeedBoost";
-        } else if (boostId == 2)//BulletSpeedBoost
+        } else if (boostId == (int)BoostEnum.BulletSpeedBoost)//BulletSpeedBoost
         {
             boost = bulletSpeedBoostPoolInstance.GetObject();
             boost.name = "BulletSpeedBoost";
-        } else //if (boostId == 3)//BulletDamageBoost
+        }
+        else //if (boostId == (int)BoostEnum.BulletDamageBoost)//BulletDamageBoost
         {
             boost = bulletDamageBoostPoolInstance.GetObject();
             boost.name = "BulletDamageBoost";
@@ -141,19 +150,19 @@ public class GM : MonoBehaviour
     internal static void RemoveBoost(int boostId, Vector3 boostPos)
     {
         List<GameObject> boosts;
-        if (boostId == 0)//HealthBoost
+        if (boostId == (int)BoostEnum.HealthBoost)//HealthBoost
         {
             boosts = healthBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
         }
-        else if (boostId == 1)//PlayerSpeedBoost
+        else if (boostId == (int)BoostEnum.PlayerSpeedBoost)//PlayerSpeedBoost
         {
             boosts = playerSpeedBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
         }
-        else if (boostId == 2)//BulletSpeedBoost
+        else if (boostId == (int)BoostEnum.BulletSpeedBoost)//BulletSpeedBoost
         {
             boosts = bulletSpeedBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
         }
-        else //if (boostId == 3)//BulletDamageBoost
+        else //if (boostId == (int)BoostEnum.BulletDamageBoost)//BulletDamageBoost
         {
             boosts = bulletDamageBoostPoolInstance.GetActiveObjectsInPositionList(boostPos);
         }
@@ -161,6 +170,7 @@ public class GM : MonoBehaviour
     }
     internal void GoToMainMenu()
     {
+        Client.instance.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +17,8 @@ public class PlayerController : MonoBehaviour
     bool escPressed = false;
 
     public float runSpeed = 20.0f;
+    public float bulletSpeedMultiplier = 1;
+    public const int multiplierDuration = 30000;
 
     void Awake()
     {
@@ -73,11 +77,17 @@ public class PlayerController : MonoBehaviour
             bullet.transform.position = muzzle.transform.position;
             //bullet.transform.rotation = muzzle.transform.rotation;
             bullet.SetActive(true);
-            Vector2 velocity = new Vector2(shotPos.x * 20, shotPos.y * 20);
+            Vector2 velocity = new Vector2(shotPos.x * 20, shotPos.y * 20)*bulletSpeedMultiplier;
             bullet.GetComponent<Rigidbody2D>().velocity = velocity;
             bullet.GetComponent<Bullet>().Deactivate(10);//TODO IMPROVE
             ClientSend.BulletSpawn(muzzle.transform.position, velocity);
         }
+    }
+
+    internal async void ResetBulletSpeedMultiplierDelayed(int multiplierDuration)
+    {
+        await Task.Delay(multiplierDuration);
+        bulletSpeedMultiplier = 1f;
     }
 
     private void handleMovement()

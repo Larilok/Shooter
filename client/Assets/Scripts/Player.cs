@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        PlayerController controller = GetComponent<PlayerController>();
+        if (controller == null) return;//only handle collisions by ME
         //Debug.Log($"!!!!!!!!!!!!!!!!!!!!!!!Player collided. Name: {collision.name}. GameObj Name: {collision.gameObject.name}!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         //Player player = collision.gameObject.GetComponent<Player>();
         if (collision.name == "HealthBoost")
@@ -70,6 +72,8 @@ public class Player : MonoBehaviour
         else if(collision.name == "BulletSpeedBoost")
         {
             Debug.Log("B Speed");
+            controller.bulletSpeedMultiplier += 1f;
+            controller.ResetBulletSpeedMultiplierDelayed(PlayerController.multiplierDuration);
             ClientSend.BoostHandle(2, collision.gameObject.transform.position);
         }
         else if(collision.name == "BulletDamageBoost")
