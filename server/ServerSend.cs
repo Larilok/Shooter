@@ -148,6 +148,18 @@ namespace server
                 SendTCPDataToAll(packet);
             }
         }
+        
+        public static void KillCountUpdate(int killerId)
+        {
+            Console.WriteLine($"Player {killerId} killed a player");
+            
+            using (Packet packet = new Packet((int)ServerPackets.killCountUpdate))
+            {
+                packet.Write(killerId);
+                SendTCPDataToAll(packet);
+            }
+            
+        }
         #endregion
 
     }

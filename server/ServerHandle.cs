@@ -35,17 +35,22 @@ namespace server
 
         public static void EnemyHit(int fromClient, Packet packet)
         {
+            if(!Server.IsRoundStarted())
+            {
+                return;
+            }
             int playerId = packet.ReadInt();
             Server.clients[playerId].player.SetHealth(fromClient);
             Console.WriteLine($"{playerId} was hit by player {fromClient}.");
             Server.clients[fromClient].SendHitIntoGame(playerId);
+            if(Server.clients[playerId].player.IsDead()) ServerSend.KillCountUpdate(fromClient);
+
         }
 
         internal static void BulletSpawn(int fromClient, Packet packet)
         {
             Vector3 pos = packet.ReadVector3();
             Vector2 vel = packet.ReadVector2();
-            // Console.WriteLine($"\n\nSERVER RECEIVE: Bullet: Pos: {pos.X} {pos.Y} {pos.Z}, Vel: {vel.X} {vel.Y}\n");
             Server.clients[fromClient].SendBulletIntoGame(pos, vel);
         }
 
